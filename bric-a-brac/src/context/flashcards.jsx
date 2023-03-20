@@ -6,17 +6,17 @@ const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
 const FlashcardsContext = createContext();
 
-function Provider({ children }) {
-    const [flashcardsArray, setFlascardsArray] = useState([]);
+function FlashcardsProvider({ children }) {
+    const [flashcardsArray, setFlashcardsArray] = useState([]);
 
     const fetchFlashcards = async () => {
         const response = await axios.get(FLASHCARDS_ENDPOINT);
-        setFlascardsArray(response.data);
+        setFlashcardsArray(response.data);
     };
 
     const addFlashcard = async (newItem) => {
         const response = await axios.post(FLASHCARDS_ENDPOINT, newItem);
-        setFlascardsArray([...flashcardsArray, response.data]);
+        setFlashcardsArray([...flashcardsArray, response.data]);
     };
 
     const editFlashcardById = async (id, object) => {
@@ -27,13 +27,15 @@ function Provider({ children }) {
             }
             return item;
         });
-        setBooks(updatedFlashcards);
+        setFlashcardsArray(updatedFlashcards);
     };
 
     const deleteFlashcardById = async (id) => {
         await axios.delete(`${FLASHCARDS_ENDPOINT}/${id}`);
-        const updatedFlashcards = books.filter((book) => book.id !== id);
-        setBooks(updatedFlashcards);
+        const updatedFlashcards = flashcardsArray.filter(
+            (flashcardsArray) => flashcardsArray.id !== id
+        );
+        setFlashcardsArray(updatedFlashcards);
     };
 
     const value = {
@@ -46,5 +48,5 @@ function Provider({ children }) {
     return <FlashcardsContext.Provider value={value}>{children}</FlashcardsContext.Provider>;
 }
 
-export { Provider };
+export { FlashcardsProvider };
 export default FlashcardsContext;

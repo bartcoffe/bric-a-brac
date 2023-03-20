@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import FlashcardsContext from "../context/flashcards";
 
-function useFlashcardsContext() {
+function useFlashcards() {
     return useContext(FlashcardsContext);
 }
 
-export default useFlashcardsContext;
+export default useFlashcards;

@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import useFlashcardsContext from "../hooks/use-flashcards-context";
+import useFlashcards from "../hooks/use-flashcards";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 
 const FIRST_STAGE = "FIRST_STAGE";
@@ -98,7 +98,7 @@ function CreateCard({ classes }) {
         hashtagInputField: "",
     });
 
-    const { addFlashcard } = useFlashcardsContext();
+    const { addFlashcard } = useFlashcards();
 
     const stageTemplateMapping = {
         0: {
@@ -165,7 +165,6 @@ function CreateCard({ classes }) {
         });
     };
     const handleHashtagInput = (event) => {
-        console.log(state);
         dispatch({
             type: HASHTAG_INPUT_CHANGE,
             payload: event.target.value,

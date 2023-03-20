@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import CreateCard from "../components/CreateCard";
 import FlashcardThumbnail from "../components/FlashcardThumbnail";
-import useFlashcardsContext from "../hooks/use-flashcards-context";
+import useFlashcards from "../hooks/use-flashcards";
+import useNavigation from "../hooks/use-navigation";
 function CategoriesPage() {
-    const { flashcardsArray, fetchFlashcards } = useFlashcardsContext();
+    const { flashcardsArray, fetchFlashcards } = useFlashcards();
+    const { navigate } = useNavigation();
 
     useEffect(() => {
         fetchFlashcards();
@@ -12,10 +14,16 @@ function CategoriesPage() {
     const renderedFlashcards = flashcardsArray.map((flashcard) => {
         return (
             // <FlashcardThumbnail />
-            <div key={flashcard.id} className='border w-24 h-24'>
+            <div
+                id={flashcard.id}
+                onClick={() => {
+                    navigate(`/flashcard/${flashcard.id}`);
+                }}
+                key={flashcard.id}
+                className='border w-24 h-24 cursor-pointer'
+            >
                 <div>{flashcard.category}</div>
-                <div>{flashcard.description}</div>
-                <div>{flashcard.code}</div>
+                <div>{flashcard.hashtag}</div>
             </div>
         );
     });
