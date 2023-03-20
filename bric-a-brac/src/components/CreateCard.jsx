@@ -133,15 +133,23 @@ function CreateCard() {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        const flashcard = {
-            category: state.radioInputField,
-            description: state.descriptionInputField,
-            code: state.codeInputField,
-        };
-        addFlashcard(flashcard);
-        dispatch({
-            type: SUBMIT,
-        });
+        if (
+            ![state.radioInputField, state.descriptionInputField, state.codeInputField].every(
+                (x) => x
+            )
+        ) {
+            alert("please come back and fill all fields");
+        } else {
+            const flashcard = {
+                category: state.radioInputField,
+                description: state.descriptionInputField,
+                code: state.codeInputField,
+            };
+            addFlashcard(flashcard);
+            dispatch({
+                type: SUBMIT,
+            });
+        }
     };
 
     return (
@@ -157,7 +165,7 @@ function CreateCard() {
                         </button>
                     )}
                     {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
-                        <div>
+                        <div className='flex justify-center'>
                             {...CATEGORIES.map((cat) => (
                                 <div>
                                     <input

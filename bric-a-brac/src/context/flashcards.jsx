@@ -6,10 +6,7 @@ function Provider({ children }) {
     const [flashcardsArray, setFlascardsArray] = useState([]);
 
     const addFlashcard = (newItem) => {
-        setFlascardsArray({
-            ...flashcardsArray,
-            newItem,
-        });
+        setFlascardsArray([...flashcardsArray, newItem]);
     };
 
     const value = {
