@@ -1,20 +1,36 @@
 import { useReducer } from "react";
 import useFlashcardsContext from "../hooks/use-flashcards-context";
+import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 
 const FIRST_STAGE = "FIRST_STAGE";
 const NEXT_STAGE = "NEXT_STAGE";
 const PREVIOUS_STAGE = "PREVIOUS_STAGE";
 const SUBMIT = "SUBMIT";
-const RADIO_INPUT_CHANGE = "RADIO_INPUT_CHANGE";
+const CATEGORY_INPUT_CHANGE = "CATEGORY_INPUT_CHANGE";
 const CODE_INPUT_CHANGE = "CODE_INPUT_CHANGE";
 const DESCRIPTION_INPUT_CHANGE = "DESCRIPTION_INPUT_CHANGE";
+const HASHTAG_INPUT_CHANGE = "HASHTAG_INPUT_CHANGE";
 
 const LABEL_CHOOSE_CAT = "choose category";
 const LABEL_DESCRIPTION = "add description";
 const LABEL_ADD_CODE = "add code";
+const LABEL_ADD_HASHTAG = "hashtag";
 const LABEL_REVIEW = "review";
 
-const CATEGORIES = ["python", "sql", "js"];
+const CATEGORIES = [
+    {
+        name: "python",
+        icon: <SiPython />,
+    },
+    {
+        name: "sql",
+        icon: <SiPostgresql />,
+    },
+    {
+        name: "js",
+        icon: <SiJavascript />,
+    },
+];
 
 const reducer = (state, action) => {
     if (action.type === FIRST_STAGE) {
@@ -39,12 +55,17 @@ const reducer = (state, action) => {
         return {
             ...state,
             creationStage: undefined,
+            categoryInputField: undefined,
+            descriptionInputField: "",
+            codeInputField: "",
+            hashtagInputField: "",
         };
     }
-    if (action.type === RADIO_INPUT_CHANGE) {
+    if (action.type === CATEGORY_INPUT_CHANGE) {
         return {
             ...state,
-            radioInputField: action.payload,
+            categoryInputField: action.payload,
+            creationStage: state.creationStage + 1,
         };
     }
     if (action.type === CODE_INPUT_CHANGE) {
@@ -59,15 +80,22 @@ const reducer = (state, action) => {
             descriptionInputField: action.payload,
         };
     }
+    if (action.type === HASHTAG_INPUT_CHANGE) {
+        return {
+            ...state,
+            hashtagInputField: action.payload,
+        };
+    }
     return state;
 };
 
-function CreateCard() {
+function CreateCard({ classes }) {
     const [state, dispatch] = useReducer(reducer, {
         creationStage: undefined,
-        radioInputField: undefined,
+        categoryInputField: undefined,
         descriptionInputField: "",
         codeInputField: "",
+        hashtagInputField: "",
     });
 
     const { addFlashcard } = useFlashcardsContext();
@@ -89,6 +117,11 @@ function CreateCard() {
             buttonPrevious: true,
         },
         3: {
+            label: LABEL_ADD_HASHTAG,
+            buttonNext: true,
+            buttonPrevious: true,
+        },
+        4: {
             label: LABEL_REVIEW,
             buttonNext: false,
             buttonPrevious: true,
@@ -113,10 +146,10 @@ function CreateCard() {
             type: PREVIOUS_STAGE,
         });
     };
-    const handleRadioInput = (event) => {
+    const handleCategoryInput = (category) => {
         dispatch({
-            type: RADIO_INPUT_CHANGE,
-            payload: event.target.value,
+            type: CATEGORY_INPUT_CHANGE,
+            payload: category,
         });
     };
     const handleCodeInput = (event) => {
@@ -131,17 +164,27 @@ function CreateCard() {
             payload: event.target.value,
         });
     };
+    const handleHashtagInput = (event) => {
+        console.log(state);
+        dispatch({
+            type: HASHTAG_INPUT_CHANGE,
+            payload: event.target.value,
+        });
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
         if (
-            ![state.radioInputField, state.descriptionInputField, state.codeInputField].every(
-                (x) => x
-            )
+            ![
+                state.categoryInputField,
+                state.descriptionInputField,
+                state.codeInputField,
+                state.hashtagInputField,
+            ].every((x) => x)
         ) {
             alert("please come back and fill all fields");
         } else {
             const flashcard = {
-                category: state.radioInputField,
+                category: state.categoryInputField,
                 description: state.descriptionInputField,
                 code: state.codeInputField,
             };
@@ -152,8 +195,10 @@ function CreateCard() {
         }
     };
 
+    const classnames = classes;
+
     return (
-        <div className='w-96 h-24 border'>
+        <div className={classnames}>
             <form className='grid grid-cols-1 w-full h-full' onSubmit={handleSubmit}>
                 <label className='flex justify-center'>
                     {stageTemplateMapping[state.creationStage]?.label}
@@ -165,16 +210,13 @@ function CreateCard() {
                         </button>
                     )}
                     {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
-                        <div className='flex justify-center'>
+                        <div className='flex justify-center gap-4'>
                             {...CATEGORIES.map((cat) => (
-                                <div>
-                                    <input
-                                        onChange={handleRadioInput}
-                                        type='radio'
-                                        name='category'
-                                        value={cat}
-                                    />
-                                    <label htmlFor={cat}>{cat}</label>
+                                <div
+                                    className='cursor-pointer'
+                                    onClick={() => handleCategoryInput(cat.name)}
+                                >
+                                    {cat.icon}
                                 </div>
                             ))}
                         </div>
@@ -195,14 +237,22 @@ function CreateCard() {
                             onChange={handleCodeInput}
                         />
                     )}
+                    {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_HASHTAG && (
+                        <input
+                            className='border'
+                            value={state.hashtagInputField}
+                            type='text'
+                            onChange={handleHashtagInput}
+                        />
+                    )}
                     {stageTemplateMapping[state.creationStage]?.label === LABEL_REVIEW && (
                         <div>
-                            {console.log(state)}
-                            <p>{`category: ${state.radioInputField}`}</p>
+                            <p>{state.categoryInputField}</p>
                             <p>{state.descriptionInputField}</p>
                             <pre>
                                 <code>{state.codeInputField}</code>
                             </pre>
+                            <p>{state.hashtagInputField}</p>
                         </div>
                     )}
                 </div>
