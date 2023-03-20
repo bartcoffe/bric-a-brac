@@ -48,7 +48,7 @@ const reducer = (state, action) => {
     if (action.type === PREVIOUS_STAGE) {
         return {
             ...state,
-            creationStage: state.creationStage - 1,
+            creationStage: state.creationStage === 0 ? undefined : state.creationStage - 1,
         };
     }
     if (action.type === SUBMIT) {
@@ -104,7 +104,7 @@ function CreateCard({ classes }) {
         0: {
             label: LABEL_CHOOSE_CAT,
             buttonNext: true,
-            buttonPrevious: false,
+            buttonPrevious: true,
         },
         1: {
             label: LABEL_DESCRIPTION,
@@ -187,6 +187,7 @@ function CreateCard({ classes }) {
                 category: state.categoryInputField,
                 description: state.descriptionInputField,
                 code: state.codeInputField,
+                hashtag: state.hashtagInputField,
             };
             addFlashcard(flashcard);
             dispatch({

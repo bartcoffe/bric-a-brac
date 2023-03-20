@@ -1,0 +1,31 @@
+GET http://localhost:3001/flashcards HTTP/1.1
+Content-Type: application/json
+
+### //three hashes indicate we want to create separate request
+
+POST http://localhost:3001/flashcards HTTP/1.1
+Content-Type: application/json
+
+{
+    "category": "sql",
+    "description": "lalalalal",
+    "code": "cdcdcdcdcdc",
+    "hashtag": "xdxdxd"
+}
+
+###
+
+PUT http://localhost:3001/flashcards/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "category": "python",
+    "description": "lalalalalx2",
+    "code": "cdcdcdcdcdcx3",
+    "hashtag": "lolol"
+}
+
+###
+
+DELETE http://localhost:3001/flashcards/1 HTTP/1.1
+Content-Type: application/json
