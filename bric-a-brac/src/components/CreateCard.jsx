@@ -3,6 +3,8 @@ import useFlashcards from "../hooks/use-flashcards";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
 import { MdDoneOutline } from "react-icons/md";
+import Panel from "./Panel";
+import Button from "./Button";
 
 const FIRST_STAGE = "FIRST_STAGE";
 const NEXT_STAGE = "NEXT_STAGE";
@@ -198,20 +200,20 @@ function CreateCard() {
     };
 
     return (
-        <div className='text-indigo-800 bg-indigo-300 border-indigo-400 rounded-lg grid justify-center p-6 border-4'>
+        <Panel>
             <form className='grid gap-4' onSubmit={handleSubmit}>
                 <label className='flex justify-center p-1'>
                     {stageTemplateMapping[state.creationStage]?.label}
                 </label>
                 <div>
                     {state.creationStage !== undefined ? null : (
-                        <button
+                        <Button
                             type='button'
                             className='text-indigo-200 bg-indigo-400 rounded-lg p-2 border-indigo-200 border-2'
                             onClick={handleNext}
                         >
                             add bric-a-brac
-                        </button>
+                        </Button>
                     )}
                     {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
                         <div className='flex justify-center gap-4'>
@@ -278,7 +280,7 @@ function CreateCard() {
                     )}
                 </div>
             </form>
-        </div>
+        </Panel>
     );
 }
 export default CreateCard;

@@ -8,7 +8,7 @@ function FlashcardThumbnail({ flashcard }) {
                 navigate(`/flashcard/${flashcard.id}`);
             }}
             key={flashcard.id}
-            className='text-indigo-800 bg-indigo-300 rounded-lg border-4 border-indigo-400 flex gap-4 justify-center p-4 cursor-pointer'
+            className='text-indigo-800 bg-indigo-300 rounded-lg border-4 border-indigo-400 p-8 cursor-pointer'
         >
             <div>{flashcard.category}</div>
             <div>{flashcard.hashtag}</div>
