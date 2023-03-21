@@ -5,7 +5,10 @@ import Route from "./components/Route";
 function App() {
     useEffect(() => {
         const body = document.querySelector("body");
-        body.setAttribute("class", "bg-indigo-200 max-w-4xl mx-auto my-4 font-custom");
+        body.setAttribute(
+            "class",
+            " text-zinc-800 bg-zinc-800 max-w-4xl mx-auto my-4 font-custom"
+        );
     }, []);
 
     return (

@@ -1,15 +1,31 @@
 import Panel from "./Panel";
+import useFlashcards from "../hooks/use-flashcards";
+
 function YourLearning() {
+    const { flashcardsArray } = useFlashcards();
+
     return (
         <Panel>
             <div>
-                <p>your learning: </p>
+                <p className='text-lg font-bold tracking-wide pb-2'>your learning: </p>
             </div>
             <div>
-                <p>all: 10</p>
-                <p>new: 4</p>
-                <p>easy: 4</p>
-                <p>hard: 2</p>
+                <div className='flex justify-center'>
+                    <p className='w-20'>all:</p>
+                    <p className='font-bold'>10</p>
+                </div>
+                <div className='flex justify-center'>
+                    <p className='w-20'>new: </p>
+                    <p className='font-bold text-blue-700'>4</p>
+                </div>
+                <div className='flex justify-center'>
+                    <p className='w-20'>easy: </p>
+                    <p className='font-bold text-green-700'>4</p>
+                </div>
+                <div className='flex justify-center'>
+                    <p className='w-20'>hard: </p>
+                    <p className='font-bold text-red-700'>2</p>
+                </div>
             </div>
         </Panel>
     );

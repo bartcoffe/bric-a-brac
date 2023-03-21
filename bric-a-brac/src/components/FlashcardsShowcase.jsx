@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import useFlashcards from "../hooks/use-flashcards";
 import FlashcardThumbnail from "./FlashcardThumbnail";
-import Panel from "./Panel";
-
 function FlashcardsShowcase() {
     const { flashcardsArray, fetchFlashcards } = useFlashcards();
 
@@ -10,14 +8,17 @@ function FlashcardsShowcase() {
         fetchFlashcards();
     }, []);
 
-    const renderedFlashcards = flashcardsArray.map((flashcard) => {
+    let renderedFlashcards = flashcardsArray.map((flashcard) => {
         return <FlashcardThumbnail key={flashcard.id} flashcard={flashcard} />;
     });
 
     return (
-        <Panel>
-            <div className='flex gap-4 justify-start flex-wrap'>{renderedFlashcards}</div>
-        </Panel>
+        <div>
+            <div className='pb-6'>
+                <p className='text-lg font-bold tracking-wide pb-2'>current deck</p>
+            </div>
+            <div className='flex gap-4 justify-center flex-wrap'>{renderedFlashcards}</div>
+        </div>
     );
 }
 

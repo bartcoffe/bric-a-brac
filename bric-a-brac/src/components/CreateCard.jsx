@@ -1,8 +1,10 @@
 import { useReducer } from "react";
-import useFlashcards from "../hooks/use-flashcards";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
-import { MdDoneOutline } from "react-icons/md";
+import { MdDoneOutline, MdAdd } from "react-icons/md";
+
+import useFlashcards from "../hooks/use-flashcards";
+
 import Panel from "./Panel";
 import Button from "./Button";
 
@@ -16,9 +18,9 @@ const DESCRIPTION_INPUT_CHANGE = "DESCRIPTION_INPUT_CHANGE";
 const HASHTAG_INPUT_CHANGE = "HASHTAG_INPUT_CHANGE";
 
 const LABEL_CHOOSE_CAT = "choose category";
-const LABEL_DESCRIPTION = "add description";
+const LABEL_ADD_DESCRIPTION = "add short description";
 const LABEL_ADD_CODE = "add code";
-const LABEL_ADD_HASHTAG = "hashtag";
+const LABEL_ADD_HASHTAG = "add hashtag to summarize what it is about";
 const LABEL_REVIEW = "review";
 
 const CATEGORIES = [
@@ -100,6 +102,7 @@ function CreateCard() {
         descriptionInputField: "",
         codeInputField: "",
         hashtagInputField: "",
+        learningStatus: "new",
     });
 
     const { addFlashcard } = useFlashcards();
@@ -111,7 +114,7 @@ function CreateCard() {
             buttonPrevious: true,
         },
         1: {
-            label: LABEL_DESCRIPTION,
+            label: LABEL_ADD_DESCRIPTION,
             buttonNext: true,
             buttonPrevious: true,
         },
@@ -200,87 +203,90 @@ function CreateCard() {
     };
 
     return (
-        <Panel>
-            <form className='grid gap-4' onSubmit={handleSubmit}>
-                <label className='flex justify-center p-1'>
-                    {stageTemplateMapping[state.creationStage]?.label}
-                </label>
-                <div>
-                    {state.creationStage !== undefined ? null : (
-                        <Button
-                            type='button'
-                            className='text-indigo-200 bg-indigo-400 rounded-lg p-2 border-indigo-200 border-2'
-                            onClick={handleNext}
-                        >
-                            add bric-a-brac
-                        </Button>
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
-                        <div className='flex justify-center gap-4'>
-                            {...CATEGORIES.map((cat) => (
-                                <div
-                                    className='cursor-pointer'
-                                    onClick={() => handleCategoryInput(cat.name)}
-                                >
-                                    {cat.icon}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.label === LABEL_DESCRIPTION && (
+        <form className='p-4 grid gap-2' onSubmit={handleSubmit}>
+            <label className='text-lg font-bold tracking-wide'>
+                {stageTemplateMapping[state.creationStage]?.label}
+            </label>
+            <div>
+                {state.creationStage !== undefined ? null : (
+                    <div
+                        className='flex items-center gap-6 text-zinc-800 cursor-pointer'
+                        onClick={handleNext}
+                    >
+                        <MdAdd size={30} />
+                        <p className='text-lg font-bold tracking-wide'>
+                            add new <em> bric-à-brac</em>
+                        </p>
+                    </div>
+                )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
+                    <div className='flex justify-center gap-6 py-5'>
+                        {...CATEGORIES.map((cat) => (
+                            <div
+                                className='cursor-pointer'
+                                onClick={() => handleCategoryInput(cat.name)}
+                            >
+                                {cat.icon}
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_DESCRIPTION && (
+                    <textarea
+                        className='w-full p-2 bg-zinc-800 text-zinc-200'
+                        value={state.descriptionInputField}
+                        onChange={handleDescriptionInput}
+                        autoFocus
+                    />
+                )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_CODE && (
+                    <textarea
+                        className='w-full p-2 bg-zinc-800 text-zinc-200'
+                        value={state.codeInputField}
+                        onChange={handleCodeInput}
+                        autoFocus
+                    />
+                )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_HASHTAG && (
+                    <div className='py-4'>
                         <input
-                            className='border'
-                            value={state.descriptionInputField}
-                            type='text'
-                            onChange={handleDescriptionInput}
-                        />
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_CODE && (
-                        <input
-                            className='border'
-                            value={state.codeInputField}
-                            type='text'
-                            onChange={handleCodeInput}
-                        />
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_HASHTAG && (
-                        <input
-                            className='border'
+                            className='p-2 bg-zinc-800 text-zinc-200 caret-zinc-200'
                             value={state.hashtagInputField}
                             type='text'
                             onChange={handleHashtagInput}
+                            autoFocus
                         />
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.label === LABEL_REVIEW && (
-                        <div>
-                            <p>{state.categoryInputField}</p>
-                            <p>{state.descriptionInputField}</p>
-                            <pre>
-                                <code>{state.codeInputField}</code>
-                            </pre>
-                            <p>{state.hashtagInputField}</p>
-                        </div>
-                    )}
-                </div>
-                <div className='flex justify-evenly gap-8'>
-                    {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
-                        <button type='button' onClick={handlePrevious}>
-                            <TiArrowLeftOutline />
-                        </button>
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.buttonNext && (
-                        <button type='button' onClick={handleNext}>
-                            <TiArrowRightOutline />
-                        </button>
-                    )}
-                    {stageTemplateMapping[state.creationStage]?.submit && (
-                        <button type='submit'>
-                            <MdDoneOutline />
-                        </button>
-                    )}
-                </div>
-            </form>
-        </Panel>
+                    </div>
+                )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_REVIEW && (
+                    <div className=''>
+                        <p>{state.categoryInputField}</p>
+                        <p>{state.descriptionInputField}</p>
+                        <pre>
+                            <code>{state.codeInputField}</code>
+                        </pre>
+                        <p>{state.hashtagInputField}</p>
+                    </div>
+                )}
+            </div>
+            <div className='flex justify-evenly gap-8'>
+                {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
+                    <button type='button' onClick={handlePrevious}>
+                        <TiArrowLeftOutline size={25} />
+                    </button>
+                )}
+                {stageTemplateMapping[state.creationStage]?.buttonNext && (
+                    <button type='button' onClick={handleNext}>
+                        <TiArrowRightOutline size={25} />
+                    </button>
+                )}
+                {stageTemplateMapping[state.creationStage]?.submit && (
+                    <button type='submit'>
+                        <MdDoneOutline size={25} />
+                    </button>
+                )}
+            </div>
+        </form>
     );
 }
 export default CreateCard;

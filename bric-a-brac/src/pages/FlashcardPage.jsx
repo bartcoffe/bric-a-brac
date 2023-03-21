@@ -1,5 +1,5 @@
-import TextArea from "../components/TextArea";
-import CodeSnippet from "../components/CodeSnippet";
+// import TextArea from "../components/TextInput";
+// import CodeSnippet from "../components/CodeInput";
 import useFlashcards from "../hooks/use-flashcards";
 import { useEffect } from "react";
 

@@ -3,12 +3,10 @@ import Button from "./Button";
 function StartLearning() {
     return (
         <Panel>
-            <div className='grid'>
-                <p className='text-indigo-800'>
-                    be honest and answer: would you write this yourself?
-                </p>
-                <Button>test yourself!</Button>
-            </div>
+            <p className='text-lg font-bold tracking-wide pb-6'>
+                be honest and answer: hadn't you seen it, would you write it?
+            </p>
+            <Button>test yourself!</Button>
         </Panel>
     );
 }

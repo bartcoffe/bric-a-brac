@@ -1,6 +1,5 @@
 function Panel({ children, ...rest }) {
-    const classnames =
-        "grow text-indigo-800 bg-yellow-300 rounded-lg border-4 border-indigo-400 flex gap-4 justify-center p-4";
+    const classnames = "p-4 m-4 text-center text-slate-800 bg-yellow-500 rounded-lg  ";
     return (
         <div {...rest} className={classnames}>
             {children}
