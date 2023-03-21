@@ -17,11 +17,13 @@ const CODE_INPUT_CHANGE = "CODE_INPUT_CHANGE";
 const DESCRIPTION_INPUT_CHANGE = "DESCRIPTION_INPUT_CHANGE";
 const HASHTAG_INPUT_CHANGE = "HASHTAG_INPUT_CHANGE";
 
-const LABEL_CHOOSE_CAT = "choose category";
-const LABEL_ADD_DESCRIPTION = "add short description";
-const LABEL_ADD_CODE = "add code";
-const LABEL_ADD_HASHTAG = "add hashtag to summarize what it is about";
-const LABEL_REVIEW = "review";
+const LABELS = {
+    CHOOSE_CAT: "choose category",
+    ADD_DESCRIPTION: "add short description",
+    ADD_CODE: "add code",
+    ADD_HASHTAG: "add hashtag to summarize what it is about",
+    REVIEW: "review",
+};
 
 const reducer = (state, action) => {
     if (action.type === FIRST_STAGE) {
@@ -94,27 +96,27 @@ function CreateCard() {
 
     const stageTemplateMapping = {
         0: {
-            label: LABEL_CHOOSE_CAT,
+            label: LABELS.CHOOSE_CAT,
             buttonNext: true,
             buttonPrevious: true,
         },
         1: {
-            label: LABEL_ADD_DESCRIPTION,
+            label: LABELS.ADD_DESCRIPTION,
             buttonNext: true,
             buttonPrevious: true,
         },
         2: {
-            label: LABEL_ADD_CODE,
+            label: LABELS.ADD_CODE,
             buttonNext: true,
             buttonPrevious: true,
         },
         3: {
-            label: LABEL_ADD_HASHTAG,
+            label: LABELS.ADD_HASHTAG,
             buttonNext: true,
             buttonPrevious: true,
         },
         4: {
-            label: LABEL_REVIEW,
+            label: LABELS.REVIEW,
             buttonNext: false,
             buttonPrevious: true,
             submit: true,
@@ -205,7 +207,7 @@ function CreateCard() {
                         </BoldP>
                     </div>
                 )}
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
+                {stageTemplateMapping[state.creationStage]?.label === LABELS.CHOOSE_CAT && (
                     <div className='flex justify-center gap-6 py-5'>
                         {...languageCategories.map((cat) => (
                             <div
@@ -217,27 +219,27 @@ function CreateCard() {
                         ))}
                     </div>
                 )}
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_CODE && (
+                {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_CODE && (
                     <textarea
-                        className='w-full p-2 bg-zinc-800 text-zinc-200'
+                        className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
                         value={state.codeInputField}
                         onChange={handleCodeInput}
                         autoFocus
                     />
                 )}
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_DESCRIPTION && (
+                {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_DESCRIPTION && (
                     <textarea
-                        className='w-full p-2 bg-zinc-800 text-zinc-200'
+                        className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
                         value={state.descriptionInputField}
                         onChange={handleDescriptionInput}
                         autoFocus
                     />
                 )}
 
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_HASHTAG && (
-                    <div className='py-4'>
+                {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_HASHTAG && (
+                    <div className='py-4 text-center'>
                         <input
-                            className='p-2 bg-zinc-800 text-zinc-200 caret-zinc-200'
+                            className='p-2 rounded-lg bg-zinc-800 text-zinc-200 caret-zinc-200'
                             value={state.hashtagInputField}
                             type='text'
                             onChange={handleHashtagInput}
@@ -245,12 +247,12 @@ function CreateCard() {
                         />
                     </div>
                 )}
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_REVIEW && (
+                {stageTemplateMapping[state.creationStage]?.label === LABELS.REVIEW && (
                     <div className='m-4'>
                         <div className='flex items-center gap-4 pb-4'>
                             {
                                 languageCategories.find((x) => x.name === state.categoryInputField)
-                                    .icon
+                                    ?.icon
                             }
                             <div className='flex items-center gap-2'>
                                 <CgHashtag size={30} />
@@ -267,6 +269,18 @@ function CreateCard() {
                     <button type='button' onClick={handlePrevious}>
                         <TiArrowLeftOutline size={25} />
                     </button>
+                )}
+                {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
+                    <div className='flex gap-2'>
+                        {Object.keys(LABELS).map((_, index) => {
+                            let style =
+                                "self-center rounded-full w-3 h-3 border-2 border-zinc-800 ";
+                            if (index === state.creationStage) {
+                                style += "bg-zinc-800";
+                            }
+                            return <div key={index} className={style}></div>;
+                        })}
+                    </div>
                 )}
                 {stageTemplateMapping[state.creationStage]?.buttonNext && (
                     <button type='button' onClick={handleNext}>
