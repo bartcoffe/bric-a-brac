@@ -39,15 +39,15 @@ function YourLearning() {
                     </div>
                     <div className='flex'>
                         <p className='w-20'>new: </p>
-                        <p className='font-bold text-blue-700'>{deckStatus.new}</p>
+                        <p className='font-bold text-blue-800'>{deckStatus.new}</p>
                     </div>
                     <div className='flex'>
                         <p className='w-20'>easy: </p>
-                        <p className='font-bold text-green-700'>{deckStatus.easy}</p>
+                        <p className='font-bold text-green-800'>{deckStatus.easy}</p>
                     </div>
                     <div className='flex'>
                         <p className='w-20'>hard: </p>
-                        <p className='font-bold text-red-700'>{deckStatus.hard}</p>
+                        <p className='font-bold text-red-800'>{deckStatus.hard}</p>
                     </div>
                 </div>
             </div>

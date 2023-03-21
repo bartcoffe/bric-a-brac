@@ -31,6 +31,14 @@
             "hashtag": "playing_with_digits",
             "status": "new",
             "id": 4
+        },
+        {
+            "category": "javascript",
+            "description": "square every digit of a number and concatenate them",
+            "code": "function squareDigits(i) {\n  return parseInt([...i.toString()].map(x => x*x).join(''))\n}\n",
+            "hashtag": "square_and_concat",
+            "status": "new",
+            "id": 5
         }
     ]
 }

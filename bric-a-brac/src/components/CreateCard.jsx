@@ -8,14 +8,16 @@ import CodeSnippet from "./CodeSnippet";
 import TextArea from "./TextArea";
 import BoldP from "./BoldP";
 
-const FIRST_STAGE = "FIRST_STAGE";
-const NEXT_STAGE = "NEXT_STAGE";
-const PREVIOUS_STAGE = "PREVIOUS_STAGE";
-const SUBMIT = "SUBMIT";
-const CATEGORY_INPUT_CHANGE = "CATEGORY_INPUT_CHANGE";
-const CODE_INPUT_CHANGE = "CODE_INPUT_CHANGE";
-const DESCRIPTION_INPUT_CHANGE = "DESCRIPTION_INPUT_CHANGE";
-const HASHTAG_INPUT_CHANGE = "HASHTAG_INPUT_CHANGE";
+const ACTIONS = {
+    FIRST_STAGE: "FIRST_STAGE",
+    NEXT_STAGE: "NEXT_STAGE",
+    PREVIOUS_STAGE: "PREVIOUS_STAGE",
+    SUBMIT: "SUBMIT",
+    CATEGORY_INPUT_CHANGE: "CATEGORY_INPUT_CHANGE",
+    CODE_INPUT_CHANGE: "CODE_INPUT_CHANGE",
+    DESCRIPTION_INPUT_CHANGE: "DESCRIPTION_INPUT_CHANGE",
+    HASHTAG_INPUT_CHANGE: "HASHTAG_INPUT_CHANGE",
+};
 
 const LABELS = {
     CHOOSE_CAT: "choose category",
@@ -26,25 +28,25 @@ const LABELS = {
 };
 
 const reducer = (state, action) => {
-    if (action.type === FIRST_STAGE) {
+    if (action.type === ACTIONS.FIRST_STAGE) {
         return {
             ...state,
             creationStage: 0,
         };
     }
-    if (action.type === NEXT_STAGE) {
+    if (action.type === ACTIONS.NEXT_STAGE) {
         return {
             ...state,
             creationStage: state.creationStage + 1,
         };
     }
-    if (action.type === PREVIOUS_STAGE) {
+    if (action.type === ACTIONS.PREVIOUS_STAGE) {
         return {
             ...state,
             creationStage: state.creationStage === 0 ? undefined : state.creationStage - 1,
         };
     }
-    if (action.type === SUBMIT) {
+    if (action.type === ACTIONS.SUBMIT) {
         return {
             ...state,
             creationStage: undefined,
@@ -54,26 +56,26 @@ const reducer = (state, action) => {
             hashtagInputField: "",
         };
     }
-    if (action.type === CATEGORY_INPUT_CHANGE) {
+    if (action.type === ACTIONS.CATEGORY_INPUT_CHANGE) {
         return {
             ...state,
             categoryInputField: action.payload,
             creationStage: state.creationStage + 1,
         };
     }
-    if (action.type === CODE_INPUT_CHANGE) {
+    if (action.type === ACTIONS.CODE_INPUT_CHANGE) {
         return {
             ...state,
             codeInputField: action.payload,
         };
     }
-    if (action.type === DESCRIPTION_INPUT_CHANGE) {
+    if (action.type === ACTIONS.DESCRIPTION_INPUT_CHANGE) {
         return {
             ...state,
             descriptionInputField: action.payload,
         };
     }
-    if (action.type === HASHTAG_INPUT_CHANGE) {
+    if (action.type === ACTIONS.HASHTAG_INPUT_CHANGE) {
         return {
             ...state,
             hashtagInputField: action.payload,
@@ -126,41 +128,41 @@ function CreateCard() {
         event.preventDefault();
         if (state.creationStage === undefined) {
             dispatch({
-                type: FIRST_STAGE,
+                type: ACTIONS.FIRST_STAGE,
             });
         } else {
             dispatch({
-                type: NEXT_STAGE,
+                type: ACTIONS.NEXT_STAGE,
             });
         }
     };
     const handlePrevious = (event) => {
         event.preventDefault();
         dispatch({
-            type: PREVIOUS_STAGE,
+            type: ACTIONS.PREVIOUS_STAGE,
         });
     };
     const handleCategoryInput = (category) => {
         dispatch({
-            type: CATEGORY_INPUT_CHANGE,
+            type: ACTIONS.CATEGORY_INPUT_CHANGE,
             payload: category,
         });
     };
     const handleCodeInput = (event) => {
         dispatch({
-            type: CODE_INPUT_CHANGE,
+            type: ACTIONS.CODE_INPUT_CHANGE,
             payload: event.target.value,
         });
     };
     const handleDescriptionInput = (event) => {
         dispatch({
-            type: DESCRIPTION_INPUT_CHANGE,
+            type: ACTIONS.DESCRIPTION_INPUT_CHANGE,
             payload: event.target.value,
         });
     };
     const handleHashtagInput = (event) => {
         dispatch({
-            type: HASHTAG_INPUT_CHANGE,
+            type: ACTIONS.HASHTAG_INPUT_CHANGE,
             payload: event.target.value,
         });
     };
@@ -185,7 +187,7 @@ function CreateCard() {
             };
             addFlashcard(flashcard);
             dispatch({
-                type: SUBMIT,
+                type: ACTIONS.SUBMIT,
             });
         }
     };
