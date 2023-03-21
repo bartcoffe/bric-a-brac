@@ -1,17 +1,17 @@
 import TextArea from "../components/TextArea";
 import CodeSnippet from "../components/CodeSnippet";
 import useFlashcards from "../hooks/use-flashcards";
-import { useEffect } from "react";
 import { CgHashtag } from "react-icons/cg";
 import BoldP from "../components/BoldP";
 import Panel from "../components/Panel";
 
 function FlashcardPage({ id }) {
-    const { flashcardsArray, fetchFlashcards, languageCategories } = useFlashcards();
+    const { flashcardsArray, languageCategories } = useFlashcards();
 
-    useEffect(() => {
-        fetchFlashcards();
-    }, []);
+    if (flashcardsArray.length === 0) {
+        console.log("flashcards context loading");
+        return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
+    }
 
     const flashcard = flashcardsArray.find((x) => x.id === parseInt(id));
 
@@ -25,7 +25,7 @@ function FlashcardPage({ id }) {
                 </div>
             </div>
             <TextArea>{flashcard.description}</TextArea>
-            <CodeSnippet>{flashcard.code}</CodeSnippet>
+            <CodeSnippet language={flashcard.category}>{flashcard.code}</CodeSnippet>
         </Panel>
     );
 }

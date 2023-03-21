@@ -1,7 +1,7 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
+import { SiPython, SiPostgresql, SiJavascript, SiXdadevelopers } from "react-icons/si";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
@@ -18,16 +18,19 @@ function FlashcardsProvider({ children }) {
             icon: <SiPostgresql size={30} />,
         },
         {
-            name: "js",
+            name: "javascript",
             icon: <SiJavascript size={30} />,
         },
     ];
     const [flashcardsArray, setFlashcardsArray] = useState([]);
 
-    const fetchFlashcards = async () => {
-        const response = await axios.get(FLASHCARDS_ENDPOINT);
-        setFlashcardsArray(response.data);
-    };
+    useEffect(() => {
+        const fetchFlashcards = async () => {
+            const response = await axios.get(FLASHCARDS_ENDPOINT);
+            setFlashcardsArray(response.data);
+        };
+        fetchFlashcards();
+    }, []);
 
     const addFlashcard = async (newItem) => {
         const response = await axios.post(FLASHCARDS_ENDPOINT, newItem);
@@ -56,7 +59,6 @@ function FlashcardsProvider({ children }) {
     const value = {
         flashcardsArray,
         languageCategories,
-        fetchFlashcards,
         addFlashcard,
         editFlashcardById,
         deleteFlashcardById,

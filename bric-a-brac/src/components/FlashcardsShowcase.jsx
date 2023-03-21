@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import useFlashcards from "../hooks/use-flashcards";
 import BoldP from "./BoldP";
 import FlashcardThumbnail from "./FlashcardThumbnail";
 function FlashcardsShowcase() {
-    const { flashcardsArray, fetchFlashcards } = useFlashcards();
-
-    useEffect(() => {
-        fetchFlashcards();
-    }, []);
+    const { flashcardsArray } = useFlashcards();
 
     let renderedFlashcards = flashcardsArray.map((flashcard) => {
         return <FlashcardThumbnail key={flashcard.id} flashcard={flashcard} />;
