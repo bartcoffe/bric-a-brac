@@ -1,6 +1,8 @@
 import { useReducer } from "react";
 import useFlashcards from "../hooks/use-flashcards";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
+import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
+import { MdDoneOutline } from "react-icons/md";
 
 const FIRST_STAGE = "FIRST_STAGE";
 const NEXT_STAGE = "NEXT_STAGE";
@@ -20,15 +22,15 @@ const LABEL_REVIEW = "review";
 const CATEGORIES = [
     {
         name: "python",
-        icon: <SiPython />,
+        icon: <SiPython size={30} />,
     },
     {
         name: "sql",
-        icon: <SiPostgresql />,
+        icon: <SiPostgresql size={30} />,
     },
     {
         name: "js",
-        icon: <SiJavascript />,
+        icon: <SiJavascript size={30} />,
     },
 ];
 
@@ -89,7 +91,7 @@ const reducer = (state, action) => {
     return state;
 };
 
-function CreateCard({ classes }) {
+function CreateCard() {
     const [state, dispatch] = useReducer(reducer, {
         creationStage: undefined,
         categoryInputField: undefined,
@@ -195,17 +197,19 @@ function CreateCard({ classes }) {
         }
     };
 
-    const classnames = classes;
-
     return (
-        <div className={classnames}>
-            <form className='grid grid-cols-1 w-full h-full' onSubmit={handleSubmit}>
-                <label className='flex justify-center'>
+        <div className='text-indigo-800 bg-indigo-300 border-indigo-400 rounded-lg grid justify-center p-6 border-4'>
+            <form className='grid gap-4' onSubmit={handleSubmit}>
+                <label className='flex justify-center p-1'>
                     {stageTemplateMapping[state.creationStage]?.label}
                 </label>
-                <div className='w-full h-full'>
+                <div>
                     {state.creationStage !== undefined ? null : (
-                        <button type='button' className='w-full h-full' onClick={handleNext}>
+                        <button
+                            type='button'
+                            className='text-indigo-200 bg-indigo-400 rounded-lg p-2 border-indigo-200 border-2'
+                            onClick={handleNext}
+                        >
                             add bric-a-brac
                         </button>
                     )}
@@ -256,19 +260,21 @@ function CreateCard({ classes }) {
                         </div>
                     )}
                 </div>
-                <div className='flex justify-evenly'>
+                <div className='flex justify-evenly gap-8'>
                     {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
                         <button type='button' onClick={handlePrevious}>
-                            go back
+                            <TiArrowLeftOutline />
                         </button>
                     )}
                     {stageTemplateMapping[state.creationStage]?.buttonNext && (
                         <button type='button' onClick={handleNext}>
-                            next
+                            <TiArrowRightOutline />
                         </button>
                     )}
                     {stageTemplateMapping[state.creationStage]?.submit && (
-                        <button type='submit'>submit</button>
+                        <button type='submit'>
+                            <MdDoneOutline />
+                        </button>
                     )}
                 </div>
             </form>
