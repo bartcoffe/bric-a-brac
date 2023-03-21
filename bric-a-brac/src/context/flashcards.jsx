@@ -1,12 +1,27 @@
 import { createContext } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
 const FlashcardsContext = createContext();
 
 function FlashcardsProvider({ children }) {
+    const languageCategories = [
+        {
+            name: "python",
+            icon: <SiPython size={30} />,
+        },
+        {
+            name: "sql",
+            icon: <SiPostgresql size={30} />,
+        },
+        {
+            name: "js",
+            icon: <SiJavascript size={30} />,
+        },
+    ];
     const [flashcardsArray, setFlashcardsArray] = useState([]);
 
     const fetchFlashcards = async () => {
@@ -40,6 +55,7 @@ function FlashcardsProvider({ children }) {
 
     const value = {
         flashcardsArray,
+        languageCategories,
         fetchFlashcards,
         addFlashcard,
         editFlashcardById,

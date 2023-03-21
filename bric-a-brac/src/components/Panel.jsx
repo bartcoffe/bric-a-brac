@@ -1,7 +1,11 @@
-function Panel({ children, ...rest }) {
-    const classnames = "p-4 m-4 text-center text-slate-800 bg-yellow-500 rounded-lg  ";
+import classNames from "classnames";
+function Panel({ children, className, ...rest }) {
+    const finalClassNames = classNames(
+        "p-4 m-4 text-slate-800 bg-yellow-600 rounded-lg",
+        className
+    );
     return (
-        <div {...rest} className={classnames}>
+        <div {...rest} className={finalClassNames}>
             {children}
         </div>
     );

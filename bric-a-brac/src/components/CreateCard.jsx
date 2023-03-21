@@ -1,12 +1,12 @@
 import { useReducer } from "react";
-import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
+import { CgHashtag } from "react-icons/cg";
 import { MdDoneOutline, MdAdd } from "react-icons/md";
 
 import useFlashcards from "../hooks/use-flashcards";
-
-import Panel from "./Panel";
-import Button from "./Button";
+import CodeSnippet from "./CodeSnippet";
+import TextArea from "./TextArea";
+import BoldP from "./BoldP";
 
 const FIRST_STAGE = "FIRST_STAGE";
 const NEXT_STAGE = "NEXT_STAGE";
@@ -22,21 +22,6 @@ const LABEL_ADD_DESCRIPTION = "add short description";
 const LABEL_ADD_CODE = "add code";
 const LABEL_ADD_HASHTAG = "add hashtag to summarize what it is about";
 const LABEL_REVIEW = "review";
-
-const CATEGORIES = [
-    {
-        name: "python",
-        icon: <SiPython size={30} />,
-    },
-    {
-        name: "sql",
-        icon: <SiPostgresql size={30} />,
-    },
-    {
-        name: "js",
-        icon: <SiJavascript size={30} />,
-    },
-];
 
 const reducer = (state, action) => {
     if (action.type === FIRST_STAGE) {
@@ -105,7 +90,7 @@ function CreateCard() {
         learningStatus: "new",
     });
 
-    const { addFlashcard } = useFlashcards();
+    const { addFlashcard, languageCategories } = useFlashcards();
 
     const stageTemplateMapping = {
         0: {
@@ -194,6 +179,7 @@ function CreateCard() {
                 description: state.descriptionInputField,
                 code: state.codeInputField,
                 hashtag: state.hashtagInputField,
+                status: state.learningStatus,
             };
             addFlashcard(flashcard);
             dispatch({
@@ -203,25 +189,25 @@ function CreateCard() {
     };
 
     return (
-        <form className='p-4 grid gap-2' onSubmit={handleSubmit}>
-            <label className='text-lg font-bold tracking-wide'>
-                {stageTemplateMapping[state.creationStage]?.label}
+        <form className='grid gap-2' onSubmit={handleSubmit}>
+            <label className='text-center'>
+                <BoldP>{stageTemplateMapping[state.creationStage]?.label}</BoldP>
             </label>
             <div>
                 {state.creationStage !== undefined ? null : (
                     <div
-                        className='flex items-center gap-6 text-zinc-800 cursor-pointer'
+                        className='flex items-center gap-2 text-zinc-800 cursor-pointer'
                         onClick={handleNext}
                     >
                         <MdAdd size={30} />
-                        <p className='text-lg font-bold tracking-wide'>
+                        <BoldP>
                             add new <em> bric-à-brac</em>
-                        </p>
+                        </BoldP>
                     </div>
                 )}
                 {stageTemplateMapping[state.creationStage]?.label === LABEL_CHOOSE_CAT && (
                     <div className='flex justify-center gap-6 py-5'>
-                        {...CATEGORIES.map((cat) => (
+                        {...languageCategories.map((cat) => (
                             <div
                                 className='cursor-pointer'
                                 onClick={() => handleCategoryInput(cat.name)}
@@ -231,14 +217,6 @@ function CreateCard() {
                         ))}
                     </div>
                 )}
-                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_DESCRIPTION && (
-                    <textarea
-                        className='w-full p-2 bg-zinc-800 text-zinc-200'
-                        value={state.descriptionInputField}
-                        onChange={handleDescriptionInput}
-                        autoFocus
-                    />
-                )}
                 {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_CODE && (
                     <textarea
                         className='w-full p-2 bg-zinc-800 text-zinc-200'
@@ -247,6 +225,15 @@ function CreateCard() {
                         autoFocus
                     />
                 )}
+                {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_DESCRIPTION && (
+                    <textarea
+                        className='w-full p-2 bg-zinc-800 text-zinc-200'
+                        value={state.descriptionInputField}
+                        onChange={handleDescriptionInput}
+                        autoFocus
+                    />
+                )}
+
                 {stageTemplateMapping[state.creationStage]?.label === LABEL_ADD_HASHTAG && (
                     <div className='py-4'>
                         <input
@@ -259,13 +246,19 @@ function CreateCard() {
                     </div>
                 )}
                 {stageTemplateMapping[state.creationStage]?.label === LABEL_REVIEW && (
-                    <div className=''>
-                        <p>{state.categoryInputField}</p>
-                        <p>{state.descriptionInputField}</p>
-                        <pre>
-                            <code>{state.codeInputField}</code>
-                        </pre>
-                        <p>{state.hashtagInputField}</p>
+                    <div className='m-4'>
+                        <div className='flex items-center gap-4 pb-4'>
+                            {
+                                languageCategories.find((x) => x.name === state.categoryInputField)
+                                    .icon
+                            }
+                            <div className='flex items-center gap-2'>
+                                <CgHashtag size={30} />
+                                <BoldP>{state.hashtagInputField}</BoldP>
+                            </div>
+                        </div>
+                        <TextArea>{state.descriptionInputField}</TextArea>
+                        <CodeSnippet>{state.codeInputField}</CodeSnippet>
                     </div>
                 )}
             </div>
