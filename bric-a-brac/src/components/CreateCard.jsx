@@ -203,7 +203,7 @@ function CreateCard() {
                         className='flex items-center gap-2 text-zinc-800 cursor-pointer'
                         onClick={handleNext}
                     >
-                        <MdAdd size={30} />
+                        <MdAdd size={30} className='duration-500 hover:scale-110' />
                         <BoldP>
                             add new <em> bric-à-brac</em>
                         </BoldP>

@@ -12,6 +12,12 @@ function YourLearning() {
             if (currentValue.status === "easy") {
                 accumulator.easy += 1;
             }
+            if (currentValue.status === "moderate") {
+                accumulator.moderate += 1;
+            }
+            if (currentValue.status === "rather hard") {
+                accumulator.ratherHard += 1;
+            }
             if (currentValue.status === "hard") {
                 accumulator.hard += 1;
             }
@@ -20,6 +26,8 @@ function YourLearning() {
         {
             new: 0,
             easy: 0,
+            moderate: 0,
+            ratherHard: 0,
             hard: 0,
         }
     );
@@ -32,21 +40,29 @@ function YourLearning() {
                 </div>
                 <div>
                     <div className='flex pt-1'>
-                        <p className='w-20'>all:</p>
+                        <p className='w-24'>all:</p>
                         <p className='font-bold'>
                             {Object.values(deckStatus).reduce((acc, val) => acc + val)}
                         </p>
                     </div>
                     <div className='flex'>
-                        <p className='w-20'>new: </p>
+                        <p className='w-24'>new: </p>
                         <p className='font-bold text-blue-800'>{deckStatus.new}</p>
                     </div>
                     <div className='flex'>
-                        <p className='w-20'>easy: </p>
-                        <p className='font-bold text-green-800'>{deckStatus.easy}</p>
+                        <p className='w-24'>easy: </p>
+                        <p className='font-bold text-emerald-700'>{deckStatus.easy}</p>
                     </div>
                     <div className='flex'>
-                        <p className='w-20'>hard: </p>
+                        <p className='w-24'>moderate: </p>
+                        <p className='font-bold text-yellow-500'>{deckStatus.moderate}</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='w-24'>rather hard: </p>
+                        <p className='font-bold text-red-600'>{deckStatus.hard}</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='w-24'>hard: </p>
                         <p className='font-bold text-red-800'>{deckStatus.hard}</p>
                     </div>
                 </div>

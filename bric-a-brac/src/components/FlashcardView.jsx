@@ -5,7 +5,7 @@ import BoldP from "./BoldP";
 import TextArea from "./TextArea";
 import CodeSnippet from "./CodeSnippet";
 
-function FlashcardView({ flashcard }) {
+function FlashcardView({ flashcard, isCodeHidden }) {
     const { languageCategories } = useFlashcards();
     return (
         <Panel>
@@ -17,7 +17,9 @@ function FlashcardView({ flashcard }) {
                 </div>
             </div>
             <TextArea>{flashcard.description}</TextArea>
-            <CodeSnippet language={flashcard.category}>{flashcard.code}</CodeSnippet>
+            {isCodeHidden || (
+                <CodeSnippet language={flashcard.category}>{flashcard.code}</CodeSnippet>
+            )}
         </Panel>
     );
 }

@@ -24,7 +24,10 @@ function FlashcardPage({ id }) {
         <div>
             <FlashcardView flashcard={flashcard} />
             <div className='text-right mr-4'>
-                <button onClick={handleDelete} className='bg-yellow-600 rounded-lg px-3'>
+                <button
+                    onClick={handleDelete}
+                    className='bg-yellow-600 rounded-lg px-3 duration-500 hover:scale-105'
+                >
                     <AiFillDelete />
                 </button>
             </div>
