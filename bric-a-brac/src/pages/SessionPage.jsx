@@ -3,24 +3,43 @@ import useFlashcards from "../hooks/use-flashcards";
 import BoldP from "../components/BoldP";
 import { useState } from "react";
 import Panel from "../components/Panel";
+import useNavigation from "../hooks/use-navigation";
 function SessionPage() {
-    const { flashcardsArray, fetchFlashcards, STATUSES } = useFlashcards();
+    const { navigate } = useNavigation();
+    const { STATUSES, flashcardsArray, fetchFlashcards, editFlashcardById } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
+    const [currentFlashcard, setCurrentFlashcard] = useState(0);
 
     if (flashcardsArray.length === 0) {
         fetchFlashcards();
-        console.log("flashcards context loading");
         return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
     }
-    const handleCircleClick = (val) => {
-        //change 'status' property of flashcardsArray item.
-        console.log("clicked", val);
+    const handleCircleClick = (newStatus) => {
+        const deckLength = flashcardsArray.length;
+        if (currentFlashcard < deckLength - 1) {
+            editFlashcardById(flashcardsArray[currentFlashcard].id, {
+                ...flashcardsArray[currentFlashcard],
+                status: newStatus,
+            });
+            setIsCodeHidden(true);
+            setCurrentFlashcard((current) => current + 1);
+        } else {
+            editFlashcardById(flashcardsArray[currentFlashcard].id, {
+                ...flashcardsArray[currentFlashcard],
+                status: newStatus,
+            });
+            navigate("/");
+        }
     };
 
     return (
         <div>
-            <FlashcardView flashcard={flashcardsArray[0]} isCodeHidden={isCodeHidden} />;
+            <FlashcardView
+                flashcard={flashcardsArray[currentFlashcard]}
+                isCodeHidden={isCodeHidden}
+            />
+            ;
             {isCodeHidden && (
                 <div className='text-center'>
                     <button
