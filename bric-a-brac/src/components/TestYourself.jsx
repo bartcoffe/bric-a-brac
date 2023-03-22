@@ -9,7 +9,7 @@ function TestYourself() {
             <BoldP className='pb-8'>
                 be honest and answer: hadn't you seen it, would you write it?
             </BoldP>
-            <Button onClick={() => navigate("/session")}>start learning session</Button>
+            <Button onClick={() => navigate("/filtered-session")}>start learning session</Button>
         </Panel>
     );
 }

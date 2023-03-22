@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import CategoriesPage from "./pages/CategoriesPage";
 import FlashcardPage from "./pages/FlashcardPage";
 import Route from "./components/Route";
-import SessionPage from "./pages/SessionPage";
+// import SessionPage from "./pages/SessionPage";
+import FilteredSessionPage from "./pages/FilteredSessionPage";
 function App() {
     useEffect(() => {
         const body = document.querySelector("body");
@@ -15,7 +16,8 @@ function App() {
     return (
         <div className=''>
             <Route path='/'>{() => <CategoriesPage />}</Route>
-            <Route path='/session'>{() => <SessionPage />}</Route>
+            {/* <Route path='/session'>{() => <SessionPage />}</Route> */}
+            <Route path='/filtered-session'>{() => <FilteredSessionPage />}</Route>
             <Route path='/flashcard/<id>'>{(id) => <FlashcardPage id={id} />}</Route>
         </div>
     );

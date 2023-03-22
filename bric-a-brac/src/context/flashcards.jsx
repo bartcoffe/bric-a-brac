@@ -4,6 +4,7 @@ import axios from "axios";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { DiJava, DiReact } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
+import BoldP from "../components/BoldP";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
@@ -54,6 +55,36 @@ function FlashcardsProvider({ children }) {
         setFlashcardsArray(response.data);
     };
 
+    const getDeckStatus = () => {
+        return flashcardsArray.reduce(
+            (accumulator, currentValue) => {
+                if (currentValue.status === STATUSES.new.name) {
+                    accumulator.new += 1;
+                }
+                if (currentValue.status === STATUSES.easy.name) {
+                    accumulator.easy += 1;
+                }
+                if (currentValue.status === STATUSES.moderate.name) {
+                    accumulator.moderate += 1;
+                }
+                if (currentValue.status === STATUSES.ratherHard.name) {
+                    accumulator.ratherHard += 1;
+                }
+                if (currentValue.status === STATUSES.hard.name) {
+                    accumulator.hard += 1;
+                }
+                return accumulator;
+            },
+            {
+                new: 0,
+                easy: 0,
+                moderate: 0,
+                ratherHard: 0,
+                hard: 0,
+            }
+        );
+    };
+
     const addFlashcard = async (newItem) => {
         const response = await axios.post(FLASHCARDS_ENDPOINT, newItem);
         setFlashcardsArray([...flashcardsArray, response.data]);
@@ -86,6 +117,7 @@ function FlashcardsProvider({ children }) {
         editFlashcardById,
         deleteFlashcardById,
         fetchFlashcards,
+        getDeckStatus,
     };
     return <FlashcardsContext.Provider value={value}>{children}</FlashcardsContext.Provider>;
 }

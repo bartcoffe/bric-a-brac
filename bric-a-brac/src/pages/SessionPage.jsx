@@ -4,29 +4,58 @@ import BoldP from "../components/BoldP";
 import { useState } from "react";
 import Panel from "../components/Panel";
 import useNavigation from "../hooks/use-navigation";
-function SessionPage() {
+function SessionPage({ selectedStatuses }) {
     const { navigate } = useNavigation();
     const { STATUSES, flashcardsArray, fetchFlashcards, editFlashcardById } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
     const [currentFlashcard, setCurrentFlashcard] = useState(0);
 
+    let filteredFlashcardsArray;
     if (flashcardsArray.length === 0) {
         fetchFlashcards();
         return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
+    } else {
+        filteredFlashcardsArray = flashcardsArray.filter((item) => {
+            if (item.status === STATUSES.new.name) {
+                if (selectedStatuses.newButtonSelected) {
+                    return item;
+                }
+            }
+            if (item.status === STATUSES.hard.name) {
+                if (selectedStatuses.hard) {
+                    return item;
+                }
+            }
+            if (item.status === STATUSES.ratherHard.name) {
+                if (selectedStatuses.ratherHard) {
+                    return item;
+                }
+            }
+            if (item.status === STATUSES.moderate.name) {
+                if (selectedStatuses.moderate) {
+                    return item;
+                }
+            }
+            if (item.status === STATUSES.easy.name) {
+                if (selectedStatuses.easy) {
+                    return item;
+                }
+            }
+        });
     }
     const handleCircleClick = (newStatus) => {
-        const deckLength = flashcardsArray.length;
+        const deckLength = filteredFlashcardsArray.length;
         if (currentFlashcard < deckLength - 1) {
-            editFlashcardById(flashcardsArray[currentFlashcard].id, {
-                ...flashcardsArray[currentFlashcard],
+            editFlashcardById(filteredFlashcardsArray[currentFlashcard].id, {
+                ...filteredFlashcardsArray[currentFlashcard],
                 status: newStatus,
             });
             setIsCodeHidden(true);
             setCurrentFlashcard((current) => current + 1);
         } else {
-            editFlashcardById(flashcardsArray[currentFlashcard].id, {
-                ...flashcardsArray[currentFlashcard],
+            editFlashcardById(filteredFlashcardsArray[currentFlashcard].id, {
+                ...filteredFlashcardsArray[currentFlashcard],
                 status: newStatus,
             });
             navigate("/");
@@ -36,18 +65,18 @@ function SessionPage() {
     return (
         <div>
             <FlashcardView
-                flashcard={flashcardsArray[currentFlashcard]}
+                flashcard={filteredFlashcardsArray[currentFlashcard]}
                 isCodeHidden={isCodeHidden}
             />
             ;
             {isCodeHidden && (
-                <div className='text-center'>
-                    <button
-                        className='text-yellow-600 text-center'
+                <div className='text-center '>
+                    <div
+                        className='text-yellow-600 text-center cursor-pointer'
                         onClick={() => setIsCodeHidden(false)}
                     >
-                        see code
-                    </button>
+                        <BoldP>see code</BoldP>
+                    </div>
                 </div>
             )}
             {isCodeHidden || (
@@ -62,7 +91,7 @@ function SessionPage() {
                         </div>
                         <div
                             onClick={() => handleCircleClick(STATUSES.ratherHard.name)}
-                            className='w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 duration-500 hover:scale-105 shadow-xl'
+                            className='w-16 h-16 rounded-full bg-orange-600 hover:bg-orange-500 duration-500 hover:scale-105 shadow-xl'
                         >
                             <p className='invisible'>{STATUSES.ratherHard.displayName}</p>
                         </div>
@@ -81,6 +110,11 @@ function SessionPage() {
                     </div>
                 </Panel>
             )}
+            {
+                <div className='text-yellow-600 text-right p-4'>
+                    <p>{`${currentFlashcard + 1} / ${filteredFlashcardsArray.length}`}</p>
+                </div>
+            }
         </div>
     );
 }

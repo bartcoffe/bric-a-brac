@@ -7,7 +7,7 @@ function Route(props) {
     }
     if (props.path.includes("flashcard/") && currentPath.includes("flashcard/")) {
         const currentId = currentPath
-            .match(/flashcard[/]./)[0]
+            .match(/flashcard[/].*/)[0]
             .split("/")
             .at(-1);
         return props.children(currentId);

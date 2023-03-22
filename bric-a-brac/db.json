@@ -2,14 +2,6 @@
   "flashcards": [
     {
       "category": "python",
-      "description": "Write an algorithm that takes an array and moves all of the zeros to the end, preserving the order of the other elements.\n\nThere is two versions: create new list or modify it",
-      "code": "def recreate_zeros(array):\n    return sorted(array, key=lambda x: x==0)\n\ndef move_zeros(lst):\n    i = -1\n    for num in reversed(lst):\n        print(num)\n        if num == 0:\n            lst.append(lst.pop(i))\n        i -= 1\n    return lst\n",
-      "hashtag": "move_zeros",
-      "status": "moderate",
-      "id": 1
-    },
-    {
-      "category": "python",
       "description": "# Given a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p we want to find a positive integer k, if it exists, such that the sum of the digits of n taken to the successive powers of p is equal to k * n.\n",
       "code": "def dig_pow(n, p):\n    res = (sum([int(x)**(i+p) for i, x in enumerate(str(n))]) / n)\n    return int(res) if res.is_integer() else -1\n",
       "hashtag": "playing_with_digits",
@@ -21,7 +13,7 @@
       "description": "Your task is to sort a given string. Each word in the string will contain a single number. This number is the position the word should have in the result.\n\n# \"is2 Thi1s T4est 3a\"  -->  \"Thi1s is2 3a T4est\"",
       "code": "def your_order(sentence):\n    return ' '.join(sorted(sentence.split(), key=lambda w: sorted(w)))\n#utilizes the fact that numbers are always before letters in ASCII",
       "hashtag": "order_ascii",
-      "status": "moderate",
+      "status": "easy",
       "id": 5
     },
     {
@@ -29,7 +21,7 @@
       "description": "Your task is to write a function that takes a string and return a new string with all vowels removed.",
       "code": "function disemvowel(str) {\n  return str.split('').map((l) => !'aeiou'.split('').includes(l) ? l : '').join('');\n}\n\nfunction disemvowel2(str) {\n  return str.replace(/[aeiou]/gi, '');",
       "hashtag": "remove_vowels",
-      "status": "moderate",
+      "status": "hard",
       "id": 6
     },
     {
@@ -37,7 +29,7 @@
       "description": "square every digit of a number and concatenate them",
       "code": "function squareDigits(i) {\n  return parseInt([...i.toString()].map(x => x*x).join(''))\n}",
       "hashtag": "square_digits",
-      "status": "moderate",
+      "status": "ratherHard",
       "id": 7
     },
     {

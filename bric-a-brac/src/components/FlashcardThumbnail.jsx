@@ -10,7 +10,7 @@ function FlashcardThumbnail({ flashcard }) {
     const circleStyle = classNames("w-5 h-5 rounded-full", {
         "bg-blue-800": flashcard.status === STATUSES.new.name,
         "bg-red-800": flashcard.status === STATUSES.hard.name,
-        "bg-red-600": flashcard.status === STATUSES.ratherHard.name,
+        "bg-orange-600": flashcard.status === STATUSES.ratherHard.name,
         "bg-yellow-500": flashcard.status === STATUSES.moderate.name,
         "bg-emerald-700": flashcard.status === STATUSES.easy.name,
     });
@@ -21,7 +21,7 @@ function FlashcardThumbnail({ flashcard }) {
                 navigate(`/flashcard/${flashcard.id}`);
             }}
             key={flashcard.id}
-            className='text-zinc-200 bg-zinc-800 p-4 rounded-xl cursor-pointer shadow-xl hover:bg-zinc-700 duration-500 hover:scale-105'
+            className='text-zinc-200 bg-zinc-800 p-4 rounded-xl cursor-pointer shadow-xl duration-500 hover:scale-105'
         >
             <div className='flex justify-between mb-4'>
                 <div>{LANGUAGE_CATEGORIES.find((x) => x.name === flashcard.category).icon}</div>

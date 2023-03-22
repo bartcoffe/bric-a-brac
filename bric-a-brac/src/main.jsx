@@ -6,11 +6,9 @@ import { NavigationProvider } from "./context/navigation";
 import { FlashcardsProvider } from "./context/flashcards";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <NavigationProvider>
-            <FlashcardsProvider>
-                <App />
-            </FlashcardsProvider>
-        </NavigationProvider>
-    </React.StrictMode>
+    <NavigationProvider>
+        <FlashcardsProvider>
+            <App />
+        </FlashcardsProvider>
+    </NavigationProvider>
 );
