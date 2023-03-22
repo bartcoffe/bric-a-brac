@@ -5,14 +5,14 @@ import classNames from "classnames";
 
 function FlashcardThumbnail({ flashcard }) {
     const { navigate } = useNavigation();
-    const { languageCategories } = useFlashcards();
+    const { LANGUAGE_CATEGORIES, STATUSES } = useFlashcards();
 
     const circleStyle = classNames("w-5 h-5 rounded-full", {
-        "bg-blue-800": flashcard.status === "new",
-        "bg-red-800": flashcard.status === "hard",
-        "bg-red-600": flashcard.status === "rather hard",
-        "bg-yellow-500": flashcard.status === "moderate",
-        "bg-emerald-700": flashcard.status === "easy",
+        "bg-blue-800": flashcard.status === STATUSES.new.name,
+        "bg-red-800": flashcard.status === STATUSES.hard.name,
+        "bg-red-600": flashcard.status === STATUSES.ratherHard.name,
+        "bg-yellow-500": flashcard.status === STATUSES.moderate.name,
+        "bg-emerald-700": flashcard.status === STATUSES.easy.name,
     });
     return (
         <div
@@ -24,7 +24,7 @@ function FlashcardThumbnail({ flashcard }) {
             className='text-zinc-200 bg-zinc-800 p-4 rounded-xl cursor-pointer shadow-xl hover:bg-zinc-700 duration-500 hover:scale-105'
         >
             <div className='flex justify-between mb-4'>
-                <div>{languageCategories.find((x) => x.name === flashcard.category).icon}</div>
+                <div>{LANGUAGE_CATEGORIES.find((x) => x.name === flashcard.category).icon}</div>
                 <div className={circleStyle}></div>
             </div>
             <div className='flex gap-2 items-center'>

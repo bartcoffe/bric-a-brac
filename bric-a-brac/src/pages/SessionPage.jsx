@@ -4,7 +4,7 @@ import BoldP from "../components/BoldP";
 import { useState } from "react";
 import Panel from "../components/Panel";
 function SessionPage() {
-    const { flashcardsArray, fetchFlashcards } = useFlashcards();
+    const { flashcardsArray, fetchFlashcards, STATUSES } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
 
@@ -14,6 +14,7 @@ function SessionPage() {
         return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
     }
     const handleCircleClick = (val) => {
+        //change 'status' property of flashcardsArray item.
         console.log("clicked", val);
     };
 
@@ -35,28 +36,28 @@ function SessionPage() {
                     <BoldP className='text-center pb-6'>how was it?</BoldP>
                     <div className='flex justify-center gap-8'>
                         <div
-                            onClick={() => handleCircleClick("hard")}
+                            onClick={() => handleCircleClick(STATUSES.hard.name)}
                             className='w-16 h-16 rounded-full bg-red-800 hover:bg-red-700 duration-500 hover:scale-105 shadow-xl'
                         >
-                            <p className='invisible'>hard</p>
+                            <p className='invisible'>{STATUSES.hard.displayName}</p>
                         </div>
                         <div
-                            onClick={() => handleCircleClick("rather hard")}
+                            onClick={() => handleCircleClick(STATUSES.ratherHard.name)}
                             className='w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 duration-500 hover:scale-105 shadow-xl'
                         >
-                            <p className='invisible'>rather hard</p>
+                            <p className='invisible'>{STATUSES.ratherHard.displayName}</p>
                         </div>
                         <div
-                            onClick={() => handleCircleClick("moderate")}
+                            onClick={() => handleCircleClick(STATUSES.moderate.name)}
                             className='w-16 h-16 rounded-full bg-yellow-500 hover:bg-yellow-400 duration-500 hover:scale-105 shadow-xl'
                         >
-                            <p className='invisible'>moderate</p>
+                            <p className='invisible'>{STATUSES.moderate.displayName}</p>
                         </div>
                         <div
-                            onClick={() => handleCircleClick("easy")}
+                            onClick={() => handleCircleClick(STATUSES.easy.name)}
                             className='w-16 h-16 rounded-full bg-emerald-700 hover:bg-emerald-600 duration-500 hover:scale-105 shadow-xl'
                         >
-                            <p className='invisible'>easy</p>
+                            <p className='invisible'>{STATUSES.easy.displayName}</p>
                         </div>
                     </div>
                 </Panel>

@@ -10,7 +10,7 @@ const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 const FlashcardsContext = createContext();
 
 function FlashcardsProvider({ children }) {
-    const languageCategories = [
+    const LANGUAGE_CATEGORIES = [
         {
             name: "python",
             icon: <SiPython size={30} />,
@@ -40,6 +40,13 @@ function FlashcardsProvider({ children }) {
             icon: <DiReact size={35} />,
         },
     ];
+    const STATUSES = {
+        new: { name: "new", displayName: "new" },
+        easy: { name: "easy", displayName: "easy" },
+        moderate: { name: "moderate", displayName: "moderate" },
+        ratherHard: { name: "ratherHard", displayName: "rather hard" },
+        hard: { name: "hard", displayName: "hard" },
+    };
     const [flashcardsArray, setFlashcardsArray] = useState([]);
 
     const fetchFlashcards = async () => {
@@ -73,7 +80,8 @@ function FlashcardsProvider({ children }) {
 
     const value = {
         flashcardsArray,
-        languageCategories,
+        LANGUAGE_CATEGORIES,
+        STATUSES,
         addFlashcard,
         editFlashcardById,
         deleteFlashcardById,

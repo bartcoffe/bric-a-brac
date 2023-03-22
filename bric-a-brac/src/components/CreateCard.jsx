@@ -94,7 +94,7 @@ function CreateCard() {
         learningStatus: "new",
     });
 
-    const { addFlashcard, languageCategories } = useFlashcards();
+    const { addFlashcard, LANGUAGE_CATEGORIES } = useFlashcards();
 
     const stageTemplateMapping = {
         0: {
@@ -211,7 +211,7 @@ function CreateCard() {
                 )}
                 {stageTemplateMapping[state.creationStage]?.label === LABELS.CHOOSE_CAT && (
                     <div className='flex justify-center gap-6 py-5'>
-                        {...languageCategories.map((cat) => (
+                        {...LANGUAGE_CATEGORIES.map((cat) => (
                             <div
                                 className='cursor-pointer'
                                 onClick={() => handleCategoryInput(cat.name)}
@@ -256,8 +256,9 @@ function CreateCard() {
                     <div className='m-4'>
                         <div className='flex items-center gap-4 pb-4'>
                             {
-                                languageCategories.find((x) => x.name === state.categoryInputField)
-                                    ?.icon
+                                LANGUAGE_CATEGORIES.find(
+                                    (x) => x.name === state.categoryInputField
+                                )?.icon
                             }
                             <div className='flex items-center gap-2'>
                                 <CgHashtag size={30} />
