@@ -2,7 +2,7 @@ import { createContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
-import { DiJava } from "react-icons/di";
+import { DiJava, DiReact } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
@@ -33,7 +33,11 @@ function FlashcardsProvider({ children }) {
         },
         {
             name: "go",
-            icon: <TbBrandGolang size={30} />,
+            icon: <TbBrandGolang size={35} />,
+        },
+        {
+            name: "react",
+            icon: <DiReact size={35} />,
         },
     ];
     const [flashcardsArray, setFlashcardsArray] = useState([]);
