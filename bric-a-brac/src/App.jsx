@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import CategoriesPage from "./pages/CategoriesPage";
 import FlashcardPage from "./pages/FlashcardPage";
 import Route from "./components/Route";
-import { FlashcardsProvider } from "./context/flashcards";
 function App() {
     useEffect(() => {
         const body = document.querySelector("body");
@@ -13,12 +12,10 @@ function App() {
     }, []);
 
     return (
-        <FlashcardsProvider>
-            <div className=''>
-                <Route path='/'>{() => <CategoriesPage />}</Route>
-                <Route path='/flashcard/<id>'>{(id) => <FlashcardPage id={id} />}</Route>
-            </div>
-        </FlashcardsProvider>
+        <div className=''>
+            <Route path='/'>{() => <CategoriesPage />}</Route>
+            <Route path='/flashcard/<id>'>{(id) => <FlashcardPage id={id} />}</Route>
+        </div>
     );
 }
 

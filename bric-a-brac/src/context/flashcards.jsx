@@ -1,7 +1,9 @@
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { SiPython, SiPostgresql, SiJavascript, SiXdadevelopers } from "react-icons/si";
+import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
+import { DiJava } from "react-icons/di";
+import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
@@ -21,16 +23,25 @@ function FlashcardsProvider({ children }) {
             name: "javascript",
             icon: <SiJavascript size={30} />,
         },
+        {
+            name: "java",
+            icon: <DiJava size={30} />,
+        },
+        {
+            name: "c++",
+            icon: <TbBrandCpp size={30} />,
+        },
+        {
+            name: "go",
+            icon: <TbBrandGolang size={30} />,
+        },
     ];
     const [flashcardsArray, setFlashcardsArray] = useState([]);
 
-    useEffect(() => {
-        const fetchFlashcards = async () => {
-            const response = await axios.get(FLASHCARDS_ENDPOINT);
-            setFlashcardsArray(response.data);
-        };
-        fetchFlashcards();
-    }, []);
+    const fetchFlashcards = async () => {
+        const response = await axios.get(FLASHCARDS_ENDPOINT);
+        setFlashcardsArray(response.data);
+    };
 
     const addFlashcard = async (newItem) => {
         const response = await axios.post(FLASHCARDS_ENDPOINT, newItem);
@@ -62,6 +73,7 @@ function FlashcardsProvider({ children }) {
         addFlashcard,
         editFlashcardById,
         deleteFlashcardById,
+        fetchFlashcards,
     };
     return <FlashcardsContext.Provider value={value}>{children}</FlashcardsContext.Provider>;
 }

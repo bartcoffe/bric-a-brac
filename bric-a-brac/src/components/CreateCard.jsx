@@ -226,6 +226,7 @@ function CreateCard() {
                         className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
                         value={state.codeInputField}
                         onChange={handleCodeInput}
+                        maxLength='2000'
                         autoFocus
                     />
                 )}
@@ -234,6 +235,7 @@ function CreateCard() {
                         className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
                         value={state.descriptionInputField}
                         onChange={handleDescriptionInput}
+                        maxLength='2000'
                         autoFocus
                     />
                 )}
@@ -245,6 +247,7 @@ function CreateCard() {
                             value={state.hashtagInputField}
                             type='text'
                             onChange={handleHashtagInput}
+                            maxLength='20'
                             autoFocus
                         />
                     </div>
