@@ -9,7 +9,7 @@ function App() {
         const body = document.querySelector("body");
         body.setAttribute(
             "class",
-            " text-zinc-800 bg-zinc-800 max-w-4xl mx-auto my-8 font-custom"
+            " text-neutral-800 bg-neutral-50 max-w-2xl mx-auto my-8 font-custom"
         );
     }, []);
 

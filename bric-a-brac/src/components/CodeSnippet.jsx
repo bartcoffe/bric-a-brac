@@ -1,10 +1,16 @@
-import Highlight from "react-highlight";
+import classNames from "classnames";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 function CodeSnippet({ children, language }) {
+    const className = classNames("m-2 py-6 bg-neutral-100 break-all max-w-xl", language);
+
     return (
-        <Highlight className='bg-zinc-800 rounded-xl p-4' language={language}>
-            {children}
-        </Highlight>
+        <div className={className}>
+            <SyntaxHighlighter wrapLongLines={true} language={language} style={docco}>
+                {children}
+            </SyntaxHighlighter>
+        </div>
     );
 }
 

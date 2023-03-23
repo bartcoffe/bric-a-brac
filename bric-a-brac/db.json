@@ -5,7 +5,7 @@
       "description": "# Given a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p we want to find a positive integer k, if it exists, such that the sum of the digits of n taken to the successive powers of p is equal to k * n.\n",
       "code": "def dig_pow(n, p):\n    res = (sum([int(x)**(i+p) for i, x in enumerate(str(n))]) / n)\n    return int(res) if res.is_integer() else -1\n",
       "hashtag": "playing_with_digits",
-      "status": "moderate",
+      "status": "ratherHard",
       "id": 4
     },
     {
@@ -13,7 +13,7 @@
       "description": "Your task is to sort a given string. Each word in the string will contain a single number. This number is the position the word should have in the result.\n\n# \"is2 Thi1s T4est 3a\"  -->  \"Thi1s is2 3a T4est\"",
       "code": "def your_order(sentence):\n    return ' '.join(sorted(sentence.split(), key=lambda w: sorted(w)))\n#utilizes the fact that numbers are always before letters in ASCII",
       "hashtag": "order_ascii",
-      "status": "easy",
+      "status": "moderate",
       "id": 5
     },
     {
@@ -21,7 +21,7 @@
       "description": "Your task is to write a function that takes a string and return a new string with all vowels removed.",
       "code": "function disemvowel(str) {\n  return str.split('').map((l) => !'aeiou'.split('').includes(l) ? l : '').join('');\n}\n\nfunction disemvowel2(str) {\n  return str.replace(/[aeiou]/gi, '');",
       "hashtag": "remove_vowels",
-      "status": "hard",
+      "status": "easy",
       "id": 6
     },
     {
@@ -29,7 +29,7 @@
       "description": "square every digit of a number and concatenate them",
       "code": "function squareDigits(i) {\n  return parseInt([...i.toString()].map(x => x*x).join(''))\n}",
       "hashtag": "square_digits",
-      "status": "ratherHard",
+      "status": "hard",
       "id": 7
     },
     {
@@ -37,16 +37,64 @@
       "description": "Given an array of integers, find the one that appears an odd number of times.",
       "code": "function findOdd2(A) {\n  cDict = {}  \n  A.forEach((x) => {!cDict[x] ? cDict[x] = 1 : cDict[x] += 1 })\n  return parseInt(Object.keys(cDict).find(key => cDict[key] % 2 !== 0));\n}",
       "hashtag": "find_odd",
-      "status": "moderate",
+      "status": "ratherHard",
       "id": 8
     },
     {
-      "category": "react",
-      "description": "Modifying Object Properties In React State System.\n\n Recreate object to create new reference so that if this object will be passed as a prop it will be re-rendered. \nalso, see that object is created by unpacking it into new, then overwriting property we want updated.",
-      "code": "...\nconst defaultState = [\n    {id: 1, title: 'Harry Potter' },\n    {id: 2, title: 'Harry Potter 2' },\n]\nconst [books, setBooks] = useState(defaultState);\n\nconst updatePropertyOfBookWithId = (state, id, property, newPropertyValue) => {\n    const updatedBooks = state.map((obj) => {\n        if (obj.id === id) {\n            return {...obj, [property]: newPropertyValue};\n        }\n        return obj;\n    });\n    setBooks(updatedBooks);\n};",
-      "hashtag": "modify_object",
+      "category": "javascript",
+      "description": "these are scores for games. my team is the left one. sum the scores. Now for win get 3 points, draw 1 loss 0.\nlet arg14 = [\"4:4\", \"2:2\", \"3:3\", \"4:4\", \"2:2\", \"3:3\", \"4:4\", \"3:3\", \"4:4\", \"4:4\"]; //10",
+      "code": "const points = (games) =>\n    games.reduce((output, current) => {\n        return (output += current[0] > current[2] ? 3 : current[0] === current[2] ? 1 : 0);\n    }, 0);",
+      "hashtag": "count_games",
       "status": "moderate",
-      "id": 9
+      "id": 10
+    },
+    {
+      "category": "sql",
+      "description": "fdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdf",
+      "code": "fdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdfdsfsdffdsfsdfsdsfdf",
+      "hashtag": "sadsadas",
+      "status": "easy",
+      "id": 11
+    },
+    {
+      "category": "java",
+      "description": "rtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytry",
+      "code": "rtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytryrtyrtyrtyrtytryrtytyrtytryrtyrtyrtyrtytry",
+      "hashtag": "fdsfsdfsdfsfsdf",
+      "status": "hard",
+      "id": 12
+    },
+    {
+      "category": "java",
+      "description": "dsfsdfsdfsdfds",
+      "code": "sdfsdfsdfsdfsd",
+      "hashtag": "sdfsfdsfd",
+      "status": "moderate",
+      "id": 13
+    },
+    {
+      "category": "python",
+      "description": "<script>\nalert(\"You've been hacked, OR WORSE\");\n// mine some bitcoin, steal some user data, etc.\n</script>",
+      "code": "<script>\nalert(\"You've been hacked, OR WORSE\");\n// mine some bitcoin, steal some user data, etc.\n</script>",
+      "hashtag": "ssdssd",
+      "status": "easy",
+      "id": 14
+    },
+    {
+      "category": "javascript",
+      "description": "567",
+      "code": "function CodeSnippet({ children, language }) {\n    const className = classNames(\"m-2 py-6 bg-neutral-100 break-all max-w-2xl\", language);",
+      "hashtag": "tryrty",
+      "status": "hard",
+      "id": 15
+    },
+    {
+      "category": "python",
+      "description": "sdasdsadsadadasd",
+      "code": "asdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdas",
+      "hashtag": "terterter",
+      "status": "ratherHard",
+      "id": 16
     }
   ]
 }

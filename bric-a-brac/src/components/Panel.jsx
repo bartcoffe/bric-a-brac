@@ -1,7 +1,7 @@
 import classNames from "classnames";
 function Panel({ children, className, ...rest }) {
     const finalClassNames = classNames(
-        "p-4 m-2 text-slate-800 bg-yellow-600 rounded-lg",
+        "p-4 m-2 text-neutral-800 bg-neutral-100 rounded-lg shadow-lg",
         className
     );
     return (

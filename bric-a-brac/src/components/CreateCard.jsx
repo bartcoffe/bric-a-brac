@@ -1,12 +1,13 @@
 import { useReducer } from "react";
-import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
 import { CgHashtag } from "react-icons/cg";
-import { MdDoneOutline, MdAdd } from "react-icons/md";
+import { MdOutlineDone, MdAdd } from "react-icons/md";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import useFlashcards from "../hooks/use-flashcards";
 import CodeSnippet from "./CodeSnippet";
 import TextArea from "./TextArea";
 import BoldP from "./BoldP";
+import Button from "./Button";
 
 const ACTIONS = {
     FIRST_STAGE: "FIRST_STAGE",
@@ -203,7 +204,7 @@ function CreateCard() {
                         className='flex items-center gap-2 text-zinc-800 cursor-pointer'
                         onClick={handleNext}
                     >
-                        <MdAdd size={30} className='duration-500 hover:scale-110' />
+                        <MdAdd className='duration-500 hover:scale-110 text-xl text-green-700' />
                         <BoldP>
                             add new <em> bric-à-brac</em>
                         </BoldP>
@@ -212,18 +213,17 @@ function CreateCard() {
                 {stageTemplateMapping[state.creationStage]?.label === LABELS.CHOOSE_CAT && (
                     <div className='flex justify-center gap-6 py-5'>
                         {...LANGUAGE_CATEGORIES.map((cat) => (
-                            <div
+                            <Button
                                 className='cursor-pointer'
                                 onClick={() => handleCategoryInput(cat.name)}
                             >
                                 {cat.icon}
-                            </div>
+                            </Button>
                         ))}
                     </div>
                 )}
                 {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_CODE && (
-                    <textarea
-                        className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
+                    <TextArea
                         value={state.codeInputField}
                         onChange={handleCodeInput}
                         maxLength='2000'
@@ -231,8 +231,7 @@ function CreateCard() {
                     />
                 )}
                 {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_DESCRIPTION && (
-                    <textarea
-                        className='w-full rounded-lg p-2 bg-zinc-800 text-zinc-200'
+                    <TextArea
                         value={state.descriptionInputField}
                         onChange={handleDescriptionInput}
                         maxLength='2000'
@@ -243,7 +242,7 @@ function CreateCard() {
                 {stageTemplateMapping[state.creationStage]?.label === LABELS.ADD_HASHTAG && (
                     <div className='py-4 text-center'>
                         <input
-                            className='p-2 rounded-lg bg-zinc-800 text-zinc-200 caret-zinc-200'
+                            className='p-2 rounded-lg bg-neutral-300 text-neutral-800 caret-neutral-800 shadow-lg focus:outline-none'
                             value={state.hashtagInputField}
                             type='text'
                             onChange={handleHashtagInput}
@@ -261,42 +260,42 @@ function CreateCard() {
                                 )?.icon
                             }
                             <div className='flex items-center gap-2'>
-                                <CgHashtag size={30} />
+                                <CgHashtag />
                                 <BoldP>{state.hashtagInputField}</BoldP>
                             </div>
                         </div>
-                        <TextArea>{state.descriptionInputField}</TextArea>
+                        <TextArea readOnly value={state.descriptionInputField} />
                         <CodeSnippet>{state.codeInputField}</CodeSnippet>
                     </div>
                 )}
             </div>
             <div className='flex justify-evenly gap-8'>
                 {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
-                    <button type='button' onClick={handlePrevious}>
-                        <TiArrowLeftOutline size={25} />
-                    </button>
+                    <Button type='button' onClick={handlePrevious}>
+                        <BsArrowLeft />
+                    </Button>
                 )}
                 {stageTemplateMapping[state.creationStage]?.buttonPrevious && (
                     <div className='flex gap-2'>
                         {Object.keys(LABELS).map((_, index) => {
                             let style =
-                                "self-center rounded-full w-3 h-3 border-2 border-zinc-800 ";
+                                "self-center rounded-lg w-3 h-3 border border-neutral-800 opacity-70 ";
                             if (index === state.creationStage) {
-                                style += "bg-zinc-800";
+                                style += "bg-neutral-800";
                             }
                             return <div key={index} className={style}></div>;
                         })}
                     </div>
                 )}
                 {stageTemplateMapping[state.creationStage]?.buttonNext && (
-                    <button type='button' onClick={handleNext}>
-                        <TiArrowRightOutline size={25} />
-                    </button>
+                    <Button type='button' onClick={handleNext}>
+                        <BsArrowRight />
+                    </Button>
                 )}
                 {stageTemplateMapping[state.creationStage]?.submit && (
-                    <button type='submit'>
-                        <MdDoneOutline size={25} />
-                    </button>
+                    <Button type='submit'>
+                        <MdOutlineDone />
+                    </Button>
                 )}
             </div>
         </form>

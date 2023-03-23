@@ -4,6 +4,7 @@ import BoldP from "../components/BoldP";
 import { useState } from "react";
 import Panel from "../components/Panel";
 import useNavigation from "../hooks/use-navigation";
+import Button from "../components/Button";
 function SessionPage({ selectedStatuses }) {
     const { navigate } = useNavigation();
     const { STATUSES, flashcardsArray, fetchFlashcards, editFlashcardById } = useFlashcards();
@@ -68,15 +69,11 @@ function SessionPage({ selectedStatuses }) {
                 flashcard={filteredFlashcardsArray[currentFlashcard]}
                 isCodeHidden={isCodeHidden}
             />
-            ;
             {isCodeHidden && (
-                <div className='text-center '>
-                    <div
-                        className='text-yellow-600 text-center cursor-pointer'
-                        onClick={() => setIsCodeHidden(false)}
-                    >
+                <div className='text-center mt-4'>
+                    <Button onClick={() => setIsCodeHidden(false)}>
                         <BoldP>see code</BoldP>
-                    </div>
+                    </Button>
                 </div>
             )}
             {isCodeHidden || (
@@ -85,25 +82,25 @@ function SessionPage({ selectedStatuses }) {
                     <div className='flex justify-center gap-8'>
                         <div
                             onClick={() => handleCircleClick(STATUSES.hard.name)}
-                            className='w-16 h-16 rounded-full bg-red-800 hover:bg-red-700 duration-500 hover:scale-105 shadow-xl'
+                            className='w-14 h-14 rounded-full bg-red-800 hover:bg-red-700 duration-500 hover:scale-105 shadow-lg opacity-70'
                         >
                             <p className='invisible'>{STATUSES.hard.displayName}</p>
                         </div>
                         <div
                             onClick={() => handleCircleClick(STATUSES.ratherHard.name)}
-                            className='w-16 h-16 rounded-full bg-orange-600 hover:bg-orange-500 duration-500 hover:scale-105 shadow-xl'
+                            className='w-14 h-14 rounded-full bg-orange-600 hover:bg-orange-500 duration-500 hover:scale-105 shadow-lg opacity-70'
                         >
                             <p className='invisible'>{STATUSES.ratherHard.displayName}</p>
                         </div>
                         <div
                             onClick={() => handleCircleClick(STATUSES.moderate.name)}
-                            className='w-16 h-16 rounded-full bg-yellow-500 hover:bg-yellow-400 duration-500 hover:scale-105 shadow-xl'
+                            className='w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 duration-500 hover:scale-105 shadow-lg opacity-70'
                         >
                             <p className='invisible'>{STATUSES.moderate.displayName}</p>
                         </div>
                         <div
                             onClick={() => handleCircleClick(STATUSES.easy.name)}
-                            className='w-16 h-16 rounded-full bg-emerald-700 hover:bg-emerald-600 duration-500 hover:scale-105 shadow-xl'
+                            className='w-14 h-14 rounded-full bg-emerald-700 hover:bg-emerald-600 duration-500 hover:scale-105 shadow-lg opacity-70'
                         >
                             <p className='invisible'>{STATUSES.easy.displayName}</p>
                         </div>
@@ -111,7 +108,7 @@ function SessionPage({ selectedStatuses }) {
                 </Panel>
             )}
             {
-                <div className='text-yellow-600 text-right p-4'>
+                <div className='text-neutral-800 text-right p-4'>
                     <p>{`${currentFlashcard + 1} / ${filteredFlashcardsArray.length}`}</p>
                 </div>
             }

@@ -4,7 +4,6 @@ import axios from "axios";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { DiJava, DiReact } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
-import BoldP from "../components/BoldP";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
 
@@ -14,31 +13,27 @@ function FlashcardsProvider({ children }) {
     const LANGUAGE_CATEGORIES = [
         {
             name: "python",
-            icon: <SiPython size={30} />,
+            icon: <SiPython />,
         },
         {
             name: "sql",
-            icon: <SiPostgresql size={30} />,
+            icon: <SiPostgresql />,
         },
         {
             name: "javascript",
-            icon: <SiJavascript size={30} />,
+            icon: <SiJavascript />,
         },
         {
             name: "java",
-            icon: <DiJava size={30} />,
+            icon: <DiJava />,
         },
         {
             name: "c++",
-            icon: <TbBrandCpp size={30} />,
+            icon: <TbBrandCpp />,
         },
         {
             name: "go",
-            icon: <TbBrandGolang size={35} />,
-        },
-        {
-            name: "react",
-            icon: <DiReact size={35} />,
+            icon: <TbBrandGolang />,
         },
     ];
     const STATUSES = {

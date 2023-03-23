@@ -5,7 +5,7 @@ import useNavigation from "../hooks/use-navigation";
 function TestYourself() {
     const { navigate } = useNavigation();
     return (
-        <Panel>
+        <Panel className='flex flex-col justify-around'>
             <BoldP className='pb-8'>
                 be honest and answer: hadn't you seen it, would you write it?
             </BoldP>

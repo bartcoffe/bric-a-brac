@@ -10,13 +10,15 @@ function FlashcardView({ flashcard, isCodeHidden }) {
     return (
         <Panel>
             <div className='flex items-center gap-4 pb-4'>
-                {LANGUAGE_CATEGORIES.find((x) => x.name === flashcard.category).icon}
+                <div className='text-xl'>
+                    {LANGUAGE_CATEGORIES.find((x) => x.name === flashcard.category).icon}
+                </div>
                 <div className='flex items-center gap-2'>
-                    <CgHashtag size={30} />
+                    <CgHashtag />
                     <BoldP>{flashcard.hashtag}</BoldP>
                 </div>
             </div>
-            <TextArea>{flashcard.description}</TextArea>
+            <TextArea readOnly value={flashcard.description} />
             {isCodeHidden || (
                 <CodeSnippet language={flashcard.category}>{flashcard.code}</CodeSnippet>
             )}

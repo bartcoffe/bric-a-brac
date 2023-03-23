@@ -69,8 +69,6 @@ function FilteredSessionPage() {
 
     const handleBegin = () => {
         const deckStatus = getDeckStatus();
-        console.log(deckStatus);
-        console.log(state);
         let nonEmptyCategoryCount = 0;
         for (const [key, value] of Object.entries(deckStatus)) {
             if (state[key]) {
@@ -139,11 +137,10 @@ function FilteredSessionPage() {
                         </div>
                     </Panel>
 
-                    <div
-                        onClick={handleBegin}
-                        className='text-center text-yellow-600 p-6 cursor-pointer'
-                    >
-                        <BoldP>begin</BoldP>
+                    <div className='text-center mt-4'>
+                        <Button onClick={handleBegin}>
+                            <BoldP>begin</BoldP>
+                        </Button>
                     </div>
                 </div>
             )}
