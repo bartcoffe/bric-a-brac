@@ -1,3 +1,12 @@
 {
-  "flashcards": []
+  "flashcards": [
+    {
+      "category": "sql",
+      "description": "rwerewrwer",
+      "code": "werwerewr",
+      "hashtag": "werewr",
+      "status": "new",
+      "id": 1
+    }
+  ]
 }

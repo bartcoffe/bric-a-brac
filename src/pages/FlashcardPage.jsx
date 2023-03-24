@@ -4,6 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import FlashcardView from "../components/FlashcardView";
 import BoldP from "../components/BoldP";
 import Button from "../components/Button";
+import { useEffect } from "react";
 
 function FlashcardPage({ id }) {
     const { deleteFlashcardById, flashcardsArray, fetchFlashcards } = useFlashcards();
@@ -11,8 +12,11 @@ function FlashcardPage({ id }) {
 
     const flashcard = flashcardsArray.find((x) => x.id === parseInt(id));
 
-    if (!flashcard) {
+    useEffect(() => {
         fetchFlashcards();
+    }, []);
+
+    if (!flashcard) {
         return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
     }
 
