@@ -6,9 +6,11 @@ frontend:
         - npm ci
     build:
       commands:
+        - echo "VITE_REGION=$REGION" >> .env
+        - echo "VITE_ENDPOINT=$ENDPOINT" >> .env
         - npm run build
   artifacts:
-    baseDirectory: build
+    baseDirectory: dist
     files:
       - "**/*"
   cache:
