@@ -7,7 +7,7 @@ import useNavigation from "../hooks/use-navigation";
 import Button from "../components/Button";
 function SessionPage({ selectedStatuses }) {
     const { navigate } = useNavigation();
-    const { STATUSES, flashcardsArray, fetchFlashcards, editFlashcardById } = useFlashcards();
+    const { STATUSES, flashcardsArray, editFlashcardById, fetchFlashcards } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
     const [currentFlashcard, setCurrentFlashcard] = useState(0);
@@ -19,7 +19,7 @@ function SessionPage({ selectedStatuses }) {
     } else {
         filteredFlashcardsArray = flashcardsArray.filter((item) => {
             if (item.status === STATUSES.new.name) {
-                if (selectedStatuses.newButtonSelected) {
+                if (selectedStatuses.new) {
                     return item;
                 }
             }

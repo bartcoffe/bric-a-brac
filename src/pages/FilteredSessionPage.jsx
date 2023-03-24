@@ -3,7 +3,7 @@ import BoldP from "../components/BoldP";
 import useFlashcards from "../hooks/use-flashcards";
 import Button from "../components/Button";
 import SessionPage from "./SessionPage";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 const NEW_BUTTON_SELECTED = "NEW_BUTTON_SELECTED";
 const EASY_BUTTON_SELECTED = "EASY_BUTTON_SELECTED";
@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     if (action.type === NEW_BUTTON_SELECTED) {
         return {
             ...state,
-            newButtonSelected: !state.newButtonSelected,
+            new: !state.new,
         };
     }
     if (action.type === EASY_BUTTON_SELECTED) {
@@ -53,22 +53,24 @@ const reducer = (state, action) => {
 };
 
 function FilteredSessionPage() {
-    const { STATUSES, getDeckStatus, fetchFlashcards, flashcardsArray } = useFlashcards();
+    const { STATUSES, getDeckStatus, fetchFlashcards } = useFlashcards();
     const [state, dispatch] = useReducer(reducer, {
         areOptionsReady: false,
+        new: false,
         easy: false,
         moderate: false,
         ratherHard: false,
         hard: false,
     });
 
-    if (flashcardsArray.length === 0) {
+    useEffect(() => {
         fetchFlashcards();
-        return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
-    }
+    }, []);
 
     const handleBegin = () => {
         const deckStatus = getDeckStatus();
+        console.log(state);
+        console.log(deckStatus);
         let nonEmptyCategoryCount = 0;
         for (const [key, value] of Object.entries(deckStatus)) {
             if (state[key]) {
@@ -77,6 +79,7 @@ function FilteredSessionPage() {
         }
         if (
             !(
+                state.new ||
                 state.easy ||
                 state.moderate ||
                 state.ratherHard ||
@@ -101,7 +104,7 @@ function FilteredSessionPage() {
                         </div>
                         <div className='flex align-center justify-evenly gap-4 pt-3 items-center flex-wrap'>
                             <Button
-                                selected={state.newButtonSelected}
+                                selected={state.new}
                                 onClick={() => dispatch({ type: NEW_BUTTON_SELECTED })}
                             >
                                 {STATUSES.new.displayName}

@@ -1,8 +1,7 @@
-import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
-import { DiJava, DiReact } from "react-icons/di";
+import { DiJava } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
 
 const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
