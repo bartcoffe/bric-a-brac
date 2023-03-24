@@ -65,30 +65,6 @@
       "id": 12
     },
     {
-      "category": "java",
-      "description": "dsfsdfsdfsdfds",
-      "code": "sdfsdfsdfsdfsd",
-      "hashtag": "sdfsfdsfd",
-      "status": "moderate",
-      "id": 13
-    },
-    {
-      "category": "python",
-      "description": "<script>\nalert(\"You've been hacked, OR WORSE\");\n// mine some bitcoin, steal some user data, etc.\n</script>",
-      "code": "<script>\nalert(\"You've been hacked, OR WORSE\");\n// mine some bitcoin, steal some user data, etc.\n</script>",
-      "hashtag": "ssdssd",
-      "status": "easy",
-      "id": 14
-    },
-    {
-      "category": "javascript",
-      "description": "567",
-      "code": "function CodeSnippet({ children, language }) {\n    const className = classNames(\"m-2 py-6 bg-neutral-100 break-all max-w-2xl\", language);",
-      "hashtag": "tryrty",
-      "status": "hard",
-      "id": 15
-    },
-    {
       "category": "python",
       "description": "sdasdsadsadadasd",
       "code": "asdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdasasdasdasdas",
