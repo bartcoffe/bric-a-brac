@@ -9,11 +9,12 @@ function FlashcardPage({ id }) {
     const { deleteFlashcardById, flashcardsArray, fetchFlashcards } = useFlashcards();
     const { navigate } = useNavigation();
 
-    if (flashcardsArray.length === 0) {
+    const flashcard = flashcardsArray.find((x) => x.id === parseInt(id));
+
+    if (!flashcard) {
         fetchFlashcards();
         return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
     }
-    const flashcard = flashcardsArray.find((x) => x.id === parseInt(id));
 
     const handleDelete = () => {
         deleteFlashcardById(id);

@@ -7,44 +7,39 @@ import useNavigation from "../hooks/use-navigation";
 import Button from "../components/Button";
 function SessionPage({ selectedStatuses }) {
     const { navigate } = useNavigation();
-    const { STATUSES, flashcardsArray, editFlashcardById, fetchFlashcards } = useFlashcards();
+    const { STATUSES, flashcardsArray, editFlashcardById } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
     const [currentFlashcard, setCurrentFlashcard] = useState(0);
 
-    let filteredFlashcardsArray;
-    if (flashcardsArray.length === 0) {
-        fetchFlashcards();
-        return <BoldP className='text-zinc-200 text-center'>loading...</BoldP>;
-    } else {
-        filteredFlashcardsArray = flashcardsArray.filter((item) => {
-            if (item.status === STATUSES.new.name) {
-                if (selectedStatuses.new) {
-                    return item;
-                }
+    const filteredFlashcardsArray = flashcardsArray.filter((item) => {
+        if (item.status === STATUSES.new.name) {
+            if (selectedStatuses.new) {
+                return item;
             }
-            if (item.status === STATUSES.hard.name) {
-                if (selectedStatuses.hard) {
-                    return item;
-                }
+        }
+        if (item.status === STATUSES.hard.name) {
+            if (selectedStatuses.hard) {
+                return item;
             }
-            if (item.status === STATUSES.ratherHard.name) {
-                if (selectedStatuses.ratherHard) {
-                    return item;
-                }
+        }
+        if (item.status === STATUSES.ratherHard.name) {
+            if (selectedStatuses.ratherHard) {
+                return item;
             }
-            if (item.status === STATUSES.moderate.name) {
-                if (selectedStatuses.moderate) {
-                    return item;
-                }
+        }
+        if (item.status === STATUSES.moderate.name) {
+            if (selectedStatuses.moderate) {
+                return item;
             }
-            if (item.status === STATUSES.easy.name) {
-                if (selectedStatuses.easy) {
-                    return item;
-                }
+        }
+        if (item.status === STATUSES.easy.name) {
+            if (selectedStatuses.easy) {
+                return item;
             }
-        });
-    }
+        }
+    });
+
     const handleCircleClick = (newStatus) => {
         const deckLength = filteredFlashcardsArray.length;
         if (currentFlashcard < deckLength - 1) {
