@@ -1,67 +1,43 @@
 import FlashcardView from "../components/FlashcardView";
 import useFlashcards from "../hooks/use-flashcards";
 import BoldP from "../components/BoldP";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Panel from "../components/Panel";
 import useNavigation from "../hooks/use-navigation";
 import Button from "../components/Button";
-function SessionPage({ selectedStatuses }) {
+function SessionPage({ filteredFlashcardsArray }) {
     const { navigate } = useNavigation();
-    const { STATUSES, flashcardsArray, editFlashcardById } = useFlashcards();
+    const { STATUSES, editFlashcardById } = useFlashcards();
 
     const [isCodeHidden, setIsCodeHidden] = useState(true);
-    const [currentFlashcard, setCurrentFlashcard] = useState(0);
-
-    const filteredFlashcardsArray = flashcardsArray.filter((item) => {
-        if (item.status === STATUSES.new.name) {
-            if (selectedStatuses.new) {
-                return item;
-            }
-        }
-        if (item.status === STATUSES.hard.name) {
-            if (selectedStatuses.hard) {
-                return item;
-            }
-        }
-        if (item.status === STATUSES.ratherHard.name) {
-            if (selectedStatuses.ratherHard) {
-                return item;
-            }
-        }
-        if (item.status === STATUSES.moderate.name) {
-            if (selectedStatuses.moderate) {
-                return item;
-            }
-        }
-        if (item.status === STATUSES.easy.name) {
-            if (selectedStatuses.easy) {
-                return item;
-            }
-        }
-    });
+    const [isFinished, setIsFinished] = useState(false);
+    const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+    const toEdit = useRef([]);
 
     const handleCircleClick = (newStatus) => {
         const deckLength = filteredFlashcardsArray.length;
-        if (currentFlashcard < deckLength - 1) {
-            editFlashcardById(filteredFlashcardsArray[currentFlashcard].id, {
-                ...filteredFlashcardsArray[currentFlashcard],
-                status: newStatus,
-            });
+        toEdit.current = [
+            ...toEdit.current,
+            { id: filteredFlashcardsArray[currentFlashcardIndex].id, updatedStatus: newStatus },
+        ];
+        if (currentFlashcardIndex < deckLength - 1) {
             setIsCodeHidden(true);
-            setCurrentFlashcard((current) => current + 1);
+            setCurrentFlashcardIndex((current) => current + 1);
         } else {
-            editFlashcardById(filteredFlashcardsArray[currentFlashcard].id, {
-                ...filteredFlashcardsArray[currentFlashcard],
-                status: newStatus,
+            toEdit.current.forEach((item) => {
+                editFlashcardById(item.id, {
+                    ...filteredFlashcardsArray.find((x) => x.id === item.id),
+                    status: item.updatedStatus,
+                });
             });
-            navigate("/");
+            setIsFinished(true);
         }
     };
 
     return (
         <div>
             <FlashcardView
-                flashcard={filteredFlashcardsArray[currentFlashcard]}
+                flashcard={filteredFlashcardsArray[currentFlashcardIndex]}
                 isCodeHidden={isCodeHidden}
             />
             {isCodeHidden && (
@@ -102,9 +78,14 @@ function SessionPage({ selectedStatuses }) {
                     </div>
                 </Panel>
             )}
+            {isFinished && (
+                <Panel className='text-center'>
+                    <Button onClick={() => navigate("/")}>all done, return to homepage</Button>
+                </Panel>
+            )}
             {
                 <div className='text-neutral-800 text-right p-4'>
-                    <p>{`${currentFlashcard + 1} / ${filteredFlashcardsArray.length}`}</p>
+                    <p>{`${currentFlashcardIndex + 1} / ${filteredFlashcardsArray.length}`}</p>
                 </div>
             }
         </div>

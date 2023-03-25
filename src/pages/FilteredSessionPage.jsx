@@ -53,7 +53,7 @@ const reducer = (state, action) => {
 };
 
 function FilteredSessionPage() {
-    const { STATUSES, getDeckStatus, fetchFlashcards } = useFlashcards();
+    const { STATUSES, flashcardsArray, getDeckStatus, fetchFlashcards } = useFlashcards();
     const [state, dispatch] = useReducer(reducer, {
         areOptionsReady: false,
         new: false,
@@ -69,8 +69,6 @@ function FilteredSessionPage() {
 
     const handleBegin = () => {
         const deckStatus = getDeckStatus();
-        console.log(state);
-        console.log(deckStatus);
         let nonEmptyCategoryCount = 0;
         for (const [key, value] of Object.entries(deckStatus)) {
             if (state[key]) {
@@ -93,6 +91,34 @@ function FilteredSessionPage() {
             dispatch({ type: BEGIN_BUTTON_SELECTED });
         }
     };
+
+    const filteredFlashcardsArray = flashcardsArray.filter((item) => {
+        if (item.status === STATUSES.new.name) {
+            if (state.new) {
+                return item;
+            }
+        }
+        if (item.status === STATUSES.hard.name) {
+            if (state.hard) {
+                return item;
+            }
+        }
+        if (item.status === STATUSES.ratherHard.name) {
+            if (state.ratherHard) {
+                return item;
+            }
+        }
+        if (item.status === STATUSES.moderate.name) {
+            if (state.moderate) {
+                return item;
+            }
+        }
+        if (item.status === STATUSES.easy.name) {
+            if (state.easy) {
+                return item;
+            }
+        }
+    });
 
     return (
         <div>
@@ -148,7 +174,9 @@ function FilteredSessionPage() {
                 </div>
             )}
 
-            {state.areOptionsReady && <SessionPage selectedStatuses={state} />}
+            {state.areOptionsReady && (
+                <SessionPage filteredFlashcardsArray={filteredFlashcardsArray} />
+            )}
         </div>
     );
 }

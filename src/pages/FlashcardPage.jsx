@@ -9,8 +9,7 @@ import { useEffect } from "react";
 function FlashcardPage({ id }) {
     const { deleteFlashcardById, flashcardsArray, fetchFlashcards } = useFlashcards();
     const { navigate } = useNavigation();
-
-    const flashcard = flashcardsArray.find((x) => x.id === parseInt(id));
+    const flashcard = flashcardsArray.find((x) => x.id === id);
 
     useEffect(() => {
         fetchFlashcards();

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { useReducer } from "react";
 import { CgHashtag } from "react-icons/cg";
 import { MdOutlineDone, MdAdd } from "react-icons/md";
@@ -180,6 +181,8 @@ function CreateCard() {
             alert("please come back and fill all fields");
         } else {
             const flashcard = {
+                user_id: "sample_user",
+                id: uuidv4(),
                 category: state.categoryInputField,
                 description: state.descriptionInputField,
                 code: state.codeInputField,
