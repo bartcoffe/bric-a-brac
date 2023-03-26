@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import Introduction from "../components/Introduction";
 
 function CategoriesPage() {
-    const { fetchFlashcards, flashcardsArray } = useFlashcards();
+    const { fetchFlashcards } = useFlashcards();
     useEffect(() => {
         fetchFlashcards();
     }, []);

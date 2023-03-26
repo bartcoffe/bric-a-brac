@@ -83,13 +83,13 @@ function FlashcardsProvider({ children }) {
     };
 
     const addFlashcard = async (newItem) => {
-        const response = await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}`, newItem);
-        setFlashcardsArray([...flashcardsArray, response.data]);
+        await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}`, newItem);
+        setFlashcardsArray([...flashcardsArray, newItem]);
     };
 
     const editFlashcardStatus = async (objectsToUpdate) => {
         for (const object of objectsToUpdate) {
-            await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}/${object.id}`, { ...object });
+            await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}`, { ...object });
         }
 
         const updatedFlashcards = flashcardsArray.map((flashcard) => {
