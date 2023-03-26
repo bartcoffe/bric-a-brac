@@ -45,8 +45,10 @@ function FlashcardsProvider({ children }) {
     const [flashcardsArray, setFlashcardsArray] = useState([]);
 
     const fetchFlashcards = async () => {
-        const response = await axios.get(FLASHCARDS_ENDPOINT);
-        setFlashcardsArray(response.data);
+        if (!flashcardsArray.length) {
+            const response = await axios.get(FLASHCARDS_ENDPOINT);
+            setFlashcardsArray(response.data);
+        }
     };
 
     const getDeckStatus = () => {
@@ -84,15 +86,25 @@ function FlashcardsProvider({ children }) {
         setFlashcardsArray([...flashcardsArray, response.data]);
     };
 
-    const editFlashcardById = async (id, object) => {
-        const response = await axios.put(`${FLASHCARDS_ENDPOINT}/${id}`, { ...object });
-        const updatedFlashcards = flashcardsArray.map((item) => {
-            if (item.id === id) {
-                return { ...item, ...response.data };
+    const editFlashcardStatus = async (objectsToUpdate) => {
+        for (const object of objectsToUpdate) {
+            await axios.put(`${FLASHCARDS_ENDPOINT}/${object.id}`, { ...object });
+        }
+
+        const updatedFlashcards = flashcardsArray.map((flashcard) => {
+            let updatedFlashcard = {};
+            for (const object of objectsToUpdate) {
+                if (object.id === flashcard.id) {
+                    updatedFlashcard = {
+                        ...flashcard,
+                        status: object.status,
+                    };
+                }
             }
-            return item;
+            return updatedFlashcard.id === undefined ? { ...flashcard } : updatedFlashcard;
         });
-        setFlashcardsArray(updatedFlashcards);
+
+        setFlashcardsArray(() => updatedFlashcards);
     };
 
     const deleteFlashcardById = async (id) => {
@@ -108,7 +120,7 @@ function FlashcardsProvider({ children }) {
         LANGUAGE_CATEGORIES,
         STATUSES,
         addFlashcard,
-        editFlashcardById,
+        editFlashcardStatus,
         deleteFlashcardById,
         fetchFlashcards,
         getDeckStatus,

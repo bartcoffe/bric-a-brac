@@ -16,7 +16,6 @@ function App() {
     return (
         <div className=''>
             <Route path='/'>{() => <CategoriesPage />}</Route>
-            {/* <Route path='/session'>{() => <SessionPage />}</Route> */}
             <Route path='/filtered-session'>{() => <FilteredSessionPage />}</Route>
             <Route path='/flashcard/<id>'>{(id) => <FlashcardPage id={id} />}</Route>
         </div>
