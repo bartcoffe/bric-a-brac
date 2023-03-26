@@ -11,7 +11,7 @@ function Introduction() {
                 <ul className='p-2'>
                     <li>look at the description</li>
                     <li>think of ways you'd solve it</li>
-                    <li>opt for a solution and uncover the snippet</li>
+                    <li>uncover the snippet</li>
                     <li>did you get it right? estimate how hard it was</li>
                 </ul>
             </div>
