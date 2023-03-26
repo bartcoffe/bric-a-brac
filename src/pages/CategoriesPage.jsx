@@ -16,8 +16,6 @@ function CategoriesPage() {
     return (
         <div className='grid gap-4'>
             <Introduction />
-            {import.meta.env.VITE_REGION}
-            {import.meta.env.VITE_ENDPOINT}
             <div className='grid grid-cols-2 gap-4'>
                 <TestYourself />
                 <YourLearning />

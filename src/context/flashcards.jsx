@@ -4,8 +4,8 @@ import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { DiJava } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
 
-const FLASHCARDS_ENDPOINT = "http://localhost:3001/flashcards";
-
+const FLASHCARDS_ENDPOINT = import.meta.env.VITE_ENDPOINT;
+const LOGGED_USER = "sample_user";
 const FlashcardsContext = createContext();
 
 function FlashcardsProvider({ children }) {
@@ -46,7 +46,8 @@ function FlashcardsProvider({ children }) {
 
     const fetchFlashcards = async () => {
         if (!flashcardsArray.length) {
-            const response = await axios.get(FLASHCARDS_ENDPOINT);
+            const response = await axios.get(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}`);
+            console.log(response.data);
             setFlashcardsArray(response.data);
         }
     };
@@ -82,13 +83,13 @@ function FlashcardsProvider({ children }) {
     };
 
     const addFlashcard = async (newItem) => {
-        const response = await axios.post(FLASHCARDS_ENDPOINT, newItem);
+        const response = await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}`, newItem);
         setFlashcardsArray([...flashcardsArray, response.data]);
     };
 
     const editFlashcardStatus = async (objectsToUpdate) => {
         for (const object of objectsToUpdate) {
-            await axios.put(`${FLASHCARDS_ENDPOINT}/${object.id}`, { ...object });
+            await axios.put(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}/${object.id}`, { ...object });
         }
 
         const updatedFlashcards = flashcardsArray.map((flashcard) => {
@@ -108,7 +109,7 @@ function FlashcardsProvider({ children }) {
     };
 
     const deleteFlashcardById = async (id) => {
-        await axios.delete(`${FLASHCARDS_ENDPOINT}/${id}`);
+        await axios.delete(`${FLASHCARDS_ENDPOINT}${LOGGED_USER}/${id}`);
         const updatedFlashcards = flashcardsArray.filter(
             (flashcardsArray) => flashcardsArray.id !== id
         );
