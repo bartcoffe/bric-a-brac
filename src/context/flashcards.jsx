@@ -4,7 +4,7 @@ import { SiPython, SiPostgresql, SiJavascript } from "react-icons/si";
 import { DiJava } from "react-icons/di";
 import { TbBrandCpp, TbBrandGolang } from "react-icons/tb";
 
-const FLASHCARDS_ENDPOINT = import.meta.env.VITE_ENDPOINT;
+const FLASHCARDS_ENDPOINT = `${import.meta.env.VITE_ENDPOINT}flashcards/`;
 const LOGGED_USER = "sample_user";
 const FlashcardsContext = createContext();
 
