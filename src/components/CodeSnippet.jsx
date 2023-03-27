@@ -7,7 +7,12 @@ function CodeSnippet({ children, language }) {
 
     return (
         <div className={className}>
-            <SyntaxHighlighter wrapLongLines={true} language={language} style={docco}>
+            <SyntaxHighlighter
+                customStyle={{ "background-color": "#f5f5f5" }}
+                wrapLongLines={true}
+                language={language}
+                style={docco}
+            >
                 {children}
             </SyntaxHighlighter>
         </div>
